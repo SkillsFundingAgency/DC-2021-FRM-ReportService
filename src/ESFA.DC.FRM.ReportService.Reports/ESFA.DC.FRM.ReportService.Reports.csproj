@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ESFA.DC.DateTimeProvider.Interface" Version="0.1.6-beta0001" />
+    <PackageReference Include="ESFA.DC.ExcelService" Version="0.1.42-beta0001" />
+    <PackageReference Include="ESFA.DC.ILR.2021.Model" Version="0.1.6-beta0001" />
+    <PackageReference Include="ESFA.DC.Logging.Interfaces" Version="0.1.10-beta0001" />
+    <PackageReference Include="System.Collections.Immutable" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ESFA.DC.FRM.ReportService.Interfaces\ESFA.DC.FRM.ReportService.Interfaces.csproj" />
+    <ProjectReference Include="..\ESFA.DC.FRM.ReportService.Reports.Model\ESFA.DC.FRM.ReportService.Reports.Model.csproj" />
+  </ItemGroup>
+
+</Project>
