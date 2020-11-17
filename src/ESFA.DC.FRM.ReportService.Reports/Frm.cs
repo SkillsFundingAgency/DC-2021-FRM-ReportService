@@ -15,15 +15,19 @@ namespace ESFA.DC.FRM.ReportService.Reports
         private readonly IExcelFileService _excelFileService;
         private readonly IDictionary<string, IWorksheetReport> _worksheets;
         private readonly IReportDataProvider _reportDataProvider;
+        private readonly IModelBuilder<ISummaryModel> _summaryPageModelBuilder;
+        private readonly IRenderService<ISummaryModel> _summarPageRenderService;
 
         private string SummaryName => "Summary";
 
-        public Frm(IDictionary<string, IWorksheetReport> worksheets, IExcelFileService excelFileService, IFileNameService fileNameService, IReportDataProvider reportDataProvider)
+        public Frm(IDictionary<string, IWorksheetReport> worksheets, IExcelFileService excelFileService, IFileNameService fileNameService, IReportDataProvider reportDataProvider, IModelBuilder<ISummaryModel> summaryPageModelBuilder, IRenderService<ISummaryModel> summaryPageRenderService)
         {
             _excelFileService = excelFileService;
             _fileNameService = fileNameService;
             _worksheets = worksheets;
             _reportDataProvider = reportDataProvider;
+            _summaryPageModelBuilder = summaryPageModelBuilder;
+            _summarPageRenderService = summaryPageRenderService;
         }
 
         public string TaskName => "TaskGenerateFundingRulesMonitoringReport";
@@ -47,9 +51,10 @@ namespace ESFA.DC.FRM.ReportService.Reports
                     summaries.Add(worksheet.Generate(workbook, reportServiceContext, reportData, cancellationToken));
                 }
 
-//                var frmSummaryReport = _frmSummaryReportModelBuilder.Build(reportServiceContext, reportsDependentData);
-//                frmSummaryReport.SummaryTable = summaries;
-//                _frmSummaryReportRenderService.Render(frmSummaryReport, summaryWorksheet);
+                var summaryModel = _summaryPageModelBuilder.Build(reportServiceContext, reportData);
+                summaryModel.SummaryRows = summaries;
+
+                _summarPageRenderService.Render(summaryModel, summaryWorksheet);
 
                 await _excelFileService.SaveWorkbookAsync(workbook, fileName, reportServiceContext.Container, cancellationToken);
             }

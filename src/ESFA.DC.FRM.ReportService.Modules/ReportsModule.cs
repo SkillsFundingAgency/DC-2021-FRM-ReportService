@@ -9,25 +9,9 @@ namespace ESFA.DC.FRM.ReportService.Modules
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<Frm>().As<IReport>();
+            builder.RegisterType<Frm>().As<IReport>().InstancePerLifetimeScope();
 
-            RegisterWorksheets(builder);
-            RegisterModelBuilder(builder);
-            RegisterRenderService(builder);
-        }
-
-        private void RegisterModelBuilder(ContainerBuilder builder)
-        {
-            
-        }
-
-        private void RegisterRenderService(ContainerBuilder builder)
-        {
-
-        }
-
-        private void RegisterWorksheets(ContainerBuilder builder)
-        {
+            builder.RegisterModule<SummaryWorksheetModule>();
             builder.RegisterModule<Frm06WorksheetModule>();
             builder.RegisterModule<Frm07WorksheetModule>();
             builder.RegisterModule<Frm08WorksheetModule>();

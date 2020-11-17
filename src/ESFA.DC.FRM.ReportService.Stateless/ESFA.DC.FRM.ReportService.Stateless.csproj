@@ -339,6 +339,10 @@
       <Project>{A1983518-DEA4-41B4-B162-FC1C7B7DD63F}</Project>
       <Name>ESFA.DC.FRM.ReportService.Interfaces</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ESFA.DC.FRM.ReportService.Modules\ESFA.DC.FRM.ReportService.Modules.csproj">
+      <Project>{5EF86F5E-4401-4F43-8A7C-72E7965E3D33}</Project>
+      <Name>ESFA.DC.FRM.ReportService.Modules</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ESFA.DC.FRM.ReportService.Reports\ESFA.DC.FRM.ReportService.Reports.csproj">
       <Project>{B7935B5C-A373-424F-AA22-1943ED1EA1BB}</Project>
       <Name>ESFA.DC.FRM.ReportService.Reports</Name>

@@ -10,6 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ESFA.DC.FRM.ReportService.Data\ESFA.DC.FRM.ReportService.Data.csproj" />
     <ProjectReference Include="..\ESFA.DC.FRM.ReportService.Reports\ESFA.DC.FRM.ReportService.Reports.csproj" />
   </ItemGroup>
 

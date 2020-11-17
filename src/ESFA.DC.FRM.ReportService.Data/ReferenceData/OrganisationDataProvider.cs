@@ -28,7 +28,7 @@ namespace ESFA.DC.FRM.ReportService.Data.ReferenceData
         {
             using (var connection = _sqlConnectionFunc())
             {
-                return (await connection.QueryAsync<Organisation>(_sql, cancellationToken)).ToList<IOrganisation>();
+                return (await connection.QueryAsync<Organisation>(_sql, cancellationToken)).ToList();
             }
         }
     }

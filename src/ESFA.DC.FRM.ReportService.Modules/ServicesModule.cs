@@ -10,10 +10,10 @@ namespace ESFA.DC.FRM.ReportService.Modules
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<ExcelFileService>().As<IExcelFileService>();
+            builder.RegisterType<ExcelFileService>().As<IExcelFileService>().InstancePerLifetimeScope();
 
-            builder.RegisterType<FileNameService>().As<IFileNameService>();
-            builder.RegisterType<ReportZipService>().As<IReportZipService>();
+            builder.RegisterType<FileNameService>().As<IFileNameService>().InstancePerLifetimeScope();
+            builder.RegisterType<ReportZipService>().As<IReportZipService>().InstancePerLifetimeScope();
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Autofac;
 using ESFA.DC.FRM.ReportService.Interfaces;
 using ESFA.DC.FRM.ReportService.Reports.Model.Worksheets;
@@ -11,16 +10,12 @@ namespace ESFA.DC.FRM.ReportService.Modules.Worksheets
     {
         protected override void RegisterModelBuilder(ContainerBuilder builder)
         {
-            builder.RegisterType<Frm15ModelBuilder>().As<IModelBuilder<IEnumerable<Frm15ReportModel>>>();
+            builder.RegisterType<Frm15ModelBuilder>().As<IModelBuilder<IEnumerable<Frm15ReportModel>>>().InstancePerLifetimeScope();
         }
 
         protected override void RegisterRenderService(ContainerBuilder builder)
         {
-            builder.RegisterType<Frm15RenderService>().As<IRenderService<IEnumerable<Frm15ReportModel>>>();
-        }
-
-        protected override void RegisterServices(ContainerBuilder builder)
-        {
+            builder.RegisterType<Frm15RenderService>().As<IRenderService<IEnumerable<Frm15ReportModel>>>().InstancePerLifetimeScope();
         }
     }
 }

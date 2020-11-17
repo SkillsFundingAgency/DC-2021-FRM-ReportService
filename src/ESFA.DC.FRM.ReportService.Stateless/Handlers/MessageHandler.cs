@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Autofac;
 using ESFA.DC.FRM.ReportService.Interfaces;
 using ESFA.DC.FRM.ReportService.Interfaces.Configuration;
+using ESFA.DC.FRM.ReportService.Modules;
 using ESFA.DC.FRM.ReportService.Reports;
 using ESFA.DC.FRM.ReportService.Stateless.Configuration;
 using ESFA.DC.FRM.ReportService.Stateless.Context;
@@ -80,6 +81,10 @@ namespace ESFA.DC.FRM.ReportService.Stateless.Handlers
                 c.RegisterType<ReportServiceContext>().As<IReportServiceContext>();
 
                 c.RegisterType<EntryPoint>().InstancePerLifetimeScope();
+
+                c.RegisterModule<ServicesModule>();
+                c.RegisterModule<DataProviderModule>();
+                c.RegisterModule<ReportsModule>();
 
                 var azureBlobStorageOptions = _parentLifeTimeScope.Resolve<IAzureStorageOptions>();
                 c.RegisterInstance(new AzureStorageKeyValuePersistenceConfig(

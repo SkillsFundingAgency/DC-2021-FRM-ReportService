@@ -35,7 +35,7 @@ namespace ESFA.DC.FRM.ReportService.Data.ReferenceData
         {
             using (var connection = _sqlConnectionFunc())
             {
-                return (await connection.QueryAsync<McaGlaSofLookup>(_sql, cancellationToken)).ToList<IMcaGlaSofLookup>();
+                return (await connection.QueryAsync<McaGlaSofLookup>(_sql, cancellationToken)).ToList();
             }
         }
     }
