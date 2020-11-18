@@ -26,6 +26,7 @@
     <Parameter Name="FCSConnectionString" Value=""/>
     <Parameter Name="ILR1920DataStoreConnectionString" Value=""/>
     <Parameter Name="ILR2021DataStoreConnectionString" Value=""/>
+    <Parameter Name="PostcodesConnectionString" Value=""/>
     <Parameter Name="LarsConnectionString" Value=""/>
     <Parameter Name="OrgConnectionString" Value=""/>
     <Parameter Name="JobQueueManagerConnectionString" Value=""/>

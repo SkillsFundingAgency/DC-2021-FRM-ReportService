@@ -10,6 +10,8 @@ namespace ESFA.DC.FRM.ReportService.Stateless.Configuration
 
         public string ILR2021DataStoreConnectionString { get; set; }
 
+        public string PostcodesConnectionString { get; set; }
+
         public string LarsConnectionString { get; set; }
 
         public string OrgConnectionString { get; set; }

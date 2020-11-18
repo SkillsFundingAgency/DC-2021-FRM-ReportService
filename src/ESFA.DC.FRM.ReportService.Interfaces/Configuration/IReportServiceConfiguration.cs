@@ -8,6 +8,8 @@
 
         string ILR2021DataStoreConnectionString { get; }
 
+        string PostcodesConnectionString { get; }
+
         string LarsConnectionString { get; }
 
         string OrgConnectionString { get; }

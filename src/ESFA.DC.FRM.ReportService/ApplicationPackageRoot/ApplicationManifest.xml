@@ -16,6 +16,7 @@
     <Parameter Name="FCSConnectionString" DefaultValue="" />
     <Parameter Name="ILR1920DataStoreConnectionString" DefaultValue="" />
     <Parameter Name="ILR2021DataStoreConnectionString" DefaultValue="" />
+    <Parameter Name="PostcodesConnectionString" DefaultValue=""/>
     <Parameter Name="LarsConnectionString" DefaultValue="" />
     <Parameter Name="OrgConnectionString" DefaultValue="" />
     <Parameter Name="JobQueueManagerConnectionString" DefaultValue="" />
@@ -27,7 +28,45 @@
        ServiceManifest.xml file. -->
   <ServiceManifestImport>
     <ServiceManifestRef ServiceManifestName="ESFA.DC.FRM.ReportService.StatelessPkg" ServiceManifestVersion="1.0.0" />
-    <ConfigOverrides />
+    <ConfigOverrides Name="Config">
+      <Settings>
+        <Section Name="StatelessServiceConfiguration">
+          <Parameter Name="ServiceBusConnectionString" Value="[ServiceBusConnectionString]" />
+          <Parameter Name="TopicName" Value="[TopicName]" />
+          <Parameter Name="SubscriptionName" Value="[SubscriptionName]"/>
+          <Parameter Name="TopicMaxConcurrentCalls" Value="[TopicMaxConcurrentCalls]"/>
+          <Parameter Name="TopicMaxCallbackTimeSpanMinutes" Value="[TopicMaxCallbackTimeSpanMinutes]" />
+          <Parameter Name="JobStatusQueueName" Value="[JobStatusQueueName]" />
+          <Parameter Name="JobStatusMaxConcurrentCalls" Value="[JobStatusMaxConcurrentCalls]" />
+          <Parameter Name="AuditQueueName" Value="[AuditQueueName]" />
+          <Parameter Name="AuditMaxConcurrentCalls" Value="[AuditMaxConcurrentCalls]" />
+          <Parameter Name="LoggerConnectionString" Value="[LoggerConnectionString]" />
+        </Section>
+
+        <Section Name="SoftwareLicenceSection">
+          <Parameter Name="AsposeLicence" Value="[ApostLicence]" />
+        </Section>
+
+        <Section Name="VersionSection">
+          <Parameter Name="ServiceReleaseVersion" Value="[ServiceReleaseVersion]" />
+        </Section>
+
+        <Section Name="ReportServiceConfiguration">
+          <Parameter Name="FCSConnectionString" Value="[FCSConnectionString]"/>
+          <Parameter Name="ILR1920DataStoreConnectionString" Value="[ILR1920DataStoreConnectionString]"/>
+          <Parameter Name="ILR2021DataStoreConnectionString" Value="[ILR2021DataStoreConnectionString]"/>
+          <Parameter Name="PostcodesConnectionString" Value="[PostcodesConnectionString]"/>
+          <Parameter Name="LarsConnectionString" Value="[LarsConnectionString]"/>
+          <Parameter Name="OrgConnectionString" Value="[OrgConnectionString]"/>
+          <Parameter Name="JobQueueManagerConnectionString" Value="[JobQueueManagerConnectionString]"/>
+        </Section>
+
+        <Section Name="AzureStorageSection">
+          <Parameter Name="AzureBlobConnectionString" Value="[AzureBlobConnectionString]" />
+          <Parameter Name="AzureBlobContainerName" Value="[AzureBlobContainerName]" />
+        </Section>
+      </Settings>
+    </ConfigOverrides>
   </ServiceManifestImport>
   <DefaultServices>
     <!-- The section below creates instances of service types, when an instance of this 

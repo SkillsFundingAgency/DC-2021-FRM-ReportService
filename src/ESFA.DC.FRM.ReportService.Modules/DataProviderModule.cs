@@ -1,6 +1,9 @@
-﻿using Autofac;
+﻿using System;
+using System.Data.SqlClient;
+using Autofac;
 using ESFA.DC.FRM.ReportService.Data;
 using ESFA.DC.FRM.ReportService.Data.ReferenceData;
+using ESFA.DC.FRM.ReportService.Interfaces.Configuration;
 using ESFA.DC.FRM.ReportService.Interfaces.DataProvider;
 using ESFA.DC.FRM.ReportService.Interfaces.ReferenceData;
 
@@ -8,12 +11,40 @@ namespace ESFA.DC.FRM.ReportService.Modules
 {
     public class DataProviderModule : Module
     {
+        private readonly IReportServiceConfiguration _reportServiceConfiguration;
+        private readonly string sqlFuncParameterName = "sqlConnectionFunc";
+
+        public DataProviderModule(IReportServiceConfiguration reportServiceConfiguration)
+        {
+            _reportServiceConfiguration = reportServiceConfiguration;
+        }
+
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<OrganisationDataProvider>().As<IDataProvider<IOrganisation>>().InstancePerLifetimeScope();
-            builder.RegisterType<McaGlaLookupProvider>().As<IDataProvider<IMcaGlaSofLookup>>().InstancePerLifetimeScope();
-            builder.RegisterType<McaDevolvedContractsProvider>().As<IDataProvider<IMcaDevolvedContract>>().InstancePerLifetimeScope();
-            builder.RegisterType<LARSLearningDeliveryProvider>().As<IDataProvider<ILARSLearningDelivery>>().InstancePerLifetimeScope();
+            var orgSqlFunc = new Func<SqlConnection>(() => new SqlConnection(_reportServiceConfiguration.OrgConnectionString));
+            var fcsSqlFunc = new Func<SqlConnection>(() => new SqlConnection(_reportServiceConfiguration.FCSConnectionString));
+            var larsSqlFunc = new Func<SqlConnection>(() => new SqlConnection(_reportServiceConfiguration.LarsConnectionString));
+            var postcodesSqlFunc = new Func<SqlConnection>(() => new SqlConnection(_reportServiceConfiguration.PostcodesConnectionString));
+
+            builder.RegisterType<OrganisationDataProvider>()
+                .WithParameter(sqlFuncParameterName, orgSqlFunc)
+                .As<IDataProvider<IOrganisation>>()
+                .InstancePerLifetimeScope();
+
+            builder.RegisterType<McaGlaLookupProvider>()
+                .WithParameter(sqlFuncParameterName, postcodesSqlFunc)
+                .As<IDataProvider<IMcaGlaSofLookup>>()
+                .InstancePerLifetimeScope();
+
+            builder.RegisterType<McaDevolvedContractsProvider>()
+                .WithParameter(sqlFuncParameterName, fcsSqlFunc)
+                .As<IDataProvider<IMcaDevolvedContract>>()
+                .InstancePerLifetimeScope();
+
+            builder.RegisterType<LARSLearningDeliveryProvider>()
+                .WithParameter(sqlFuncParameterName, larsSqlFunc)
+                .As<IDataProvider<ILARSLearningDelivery>>()
+                .InstancePerLifetimeScope();
 
             builder.RegisterType<ReportDataProvider>().As<IReportDataProvider>().InstancePerLifetimeScope();
         }

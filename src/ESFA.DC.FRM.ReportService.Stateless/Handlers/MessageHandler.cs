@@ -82,9 +82,11 @@ namespace ESFA.DC.FRM.ReportService.Stateless.Handlers
 
                 c.RegisterType<EntryPoint>().InstancePerLifetimeScope();
 
+                var reportServiceConfiguration = _parentLifeTimeScope.Resolve<IReportServiceConfiguration>();
+
                 c.RegisterModule<ServicesModule>();
-                c.RegisterModule<DataProviderModule>();
                 c.RegisterModule<ReportsModule>();
+                c.RegisterModule(new DataProviderModule(reportServiceConfiguration));
 
                 var azureBlobStorageOptions = _parentLifeTimeScope.Resolve<IAzureStorageOptions>();
                 c.RegisterInstance(new AzureStorageKeyValuePersistenceConfig(
