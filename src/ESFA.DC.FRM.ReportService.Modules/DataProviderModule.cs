@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Data.SqlClient;
+using System.Security.Cryptography.X509Certificates;
 using Autofac;
 using ESFA.DC.FRM.ReportService.Data;
 using ESFA.DC.FRM.ReportService.Data.ReferenceData;
 using ESFA.DC.FRM.ReportService.Interfaces.Configuration;
 using ESFA.DC.FRM.ReportService.Interfaces.DataProvider;
 using ESFA.DC.FRM.ReportService.Interfaces.ReferenceData;
+using ESFA.DC.ILR2021.DataStore.EF;
+using ESFA.DC.ILR2021.DataStore.EF.Interface;
+using Microsoft.EntityFrameworkCore;
 
 namespace ESFA.DC.FRM.ReportService.Modules
 {
@@ -46,7 +50,14 @@ namespace ESFA.DC.FRM.ReportService.Modules
                 .As<IDataProvider<ILARSLearningDelivery>>()
                 .InstancePerLifetimeScope();
 
+            builder.RegisterType<LearnerProvider>().As<IDataProvider<Learner>>();
+
             builder.RegisterType<ReportDataProvider>().As<IReportDataProvider>().InstancePerLifetimeScope();
+
+            builder.RegisterType<ILR2021_DataStoreEntities>().As<IIlr2021Context>();
+            builder.Register(container => new DbContextOptionsBuilder<ILR2021_DataStoreEntities>()
+                .UseSqlServer(_reportServiceConfiguration.ILR2021DataStoreConnectionString, sqlServerOptions => sqlServerOptions.CommandTimeout(600))
+                .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking).Options).As<DbContextOptions<ILR2021_DataStoreEntities>>().SingleInstance();
         }
     }
 }

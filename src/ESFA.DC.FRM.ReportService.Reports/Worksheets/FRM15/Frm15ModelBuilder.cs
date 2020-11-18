@@ -32,7 +32,7 @@ namespace ESFA.DC.FRM.ReportService.Reports.Worksheets.FRM15
             var deliveries = reportData.Learners
                                         ?.SelectMany(l => l.LearningDeliveries.Where(ld =>
                                             ld.FundModel == _includedFundModel
-                                            && ld.ProgTypeNullable == _includedProgType
+                                            && ld.ProgType == _includedProgType
                                             && ld.AimType == _includedAimType
                                             && ld.CompStatus == _includedCompStatus
                                             && ld.EPAOrgID == null).Select(ld => new { Learner = l, LearningDelivery = ld }));
@@ -60,10 +60,10 @@ namespace ESFA.DC.FRM.ReportService.Reports.Worksheets.FRM15
                     var sofCode = RetrieveFamCodeForType(delivery.LearningDelivery.LearningDeliveryFAMs, SOFLearnDelFamType);
 
                     var pmOrgName = organisationNameDictionary.GetValueOrDefault(
-                            delivery.Learner.PMUKPRNNullable.GetValueOrDefault());
-                    var prevOrgName = organisationNameDictionary.GetValueOrDefault(delivery.Learner.PrevUKPRNNullable
+                            delivery.Learner.PMUKPRN.GetValueOrDefault());
+                    var prevOrgName = organisationNameDictionary.GetValueOrDefault(delivery.Learner.PrevUKPRN
                             .GetValueOrDefault());
-                    var partnerOrgName = organisationNameDictionary.GetValueOrDefault(delivery.LearningDelivery.PartnerUKPRNNullable.GetValueOrDefault());
+                    var partnerOrgName = organisationNameDictionary.GetValueOrDefault(delivery.LearningDelivery.PartnerUKPRN.GetValueOrDefault());
                     var learnAim = learnAimDictionary.GetValueOrDefault(delivery.LearningDelivery.LearnAimRef);
 
                     models.Add(new Frm15ReportModel
@@ -71,11 +71,11 @@ namespace ESFA.DC.FRM.ReportService.Reports.Worksheets.FRM15
                         Return = returnPeriod,
                         UKPRN = reportServiceContext.Ukprn,
                         OrgName = orgName,
-                        PartnerUKPRN = delivery.LearningDelivery.PartnerUKPRNNullable,
+                        PartnerUKPRN = delivery.LearningDelivery.PartnerUKPRN,
                         PartnerOrgName = partnerOrgName,
-                        PrevUKPRN = delivery.Learner.PrevUKPRNNullable,
+                        PrevUKPRN = delivery.Learner.PrevUKPRN,
                         PrevOrgName = prevOrgName,
-                        PMUKPRN = delivery.Learner.PMUKPRNNullable,
+                        PMUKPRN = delivery.Learner.PMUKPRN,
                         PMOrgName = pmOrgName,
                         ULN = delivery.Learner.ULN,
                         LearnRefNumber = delivery.Learner.LearnRefNumber,
@@ -85,24 +85,24 @@ namespace ESFA.DC.FRM.ReportService.Reports.Worksheets.FRM15
                         AimSeqNumber = delivery.LearningDelivery.AimSeqNumber,
                         AimTypeCode = delivery.LearningDelivery.AimType,
                         LearnAimType = learnAim.LearnAimRefTypeDesc,
-                        StdCode = delivery.LearningDelivery.StdCodeNullable,
-                        FworkCode = delivery.LearningDelivery.FworkCodeNullable,
-                        PwayCode = delivery.LearningDelivery.PwayCodeNullable,
-                        ProgType = delivery.LearningDelivery.ProgTypeNullable,
+                        StdCode = delivery.LearningDelivery.StdCode,
+                        FworkCode = delivery.LearningDelivery.FworkCode,
+                        PwayCode = delivery.LearningDelivery.PwayCode,
+                        ProgType = delivery.LearningDelivery.ProgType,
                         LearnStartDate = delivery.LearningDelivery.LearnStartDate,
-                        OrigLearnStartDate = delivery.LearningDelivery.OrigLearnStartDateNullable,
+                        OrigLearnStartDate = delivery.LearningDelivery.OrigLearnStartDate,
                         LearnPlanEndDate = delivery.LearningDelivery.LearnPlanEndDate,
-                        LearnActEndDate = delivery.LearningDelivery.LearnActEndDateNullable,
+                        LearnActEndDate = delivery.LearningDelivery.LearnActEndDate,
                         CompStatus = delivery.LearningDelivery.CompStatus,
-                        Outcome = delivery.LearningDelivery.OutcomeNullable,
+                        Outcome = delivery.LearningDelivery.Outcome,
                         FundModel = delivery.LearningDelivery.FundModel,
                         SOFCode = sofCode,
                         AdvancedLoansIndicator = advancedLoansIndicator,
                         ResIndicator = resIndicator,
                         ProvSpecLearnDelMon = ProviderSpecDeliveryMonitorings(delivery.LearningDelivery.ProviderSpecDeliveryMonitorings),
                         ProvSpecDelMon = ProviderSpecLearningMonitorings(delivery.Learner.ProviderSpecLearnerMonitorings),
-                        PriorLearnFundAdj = delivery.LearningDelivery.PriorLearnFundAdjNullable,
-                        OtherFundAdj = delivery.LearningDelivery.OtherFundAdjNullable,
+                        PriorLearnFundAdj = delivery.LearningDelivery.PriorLearnFundAdj,
+                        OtherFundAdj = delivery.LearningDelivery.OtherFundAdj,
                         EPAOrgId = delivery.LearningDelivery.EPAOrgID,
                         TotalNegotiatedAssessmentPrice = aFinAmount,
                         AssessmentPaymentReceived = paymentsReceived

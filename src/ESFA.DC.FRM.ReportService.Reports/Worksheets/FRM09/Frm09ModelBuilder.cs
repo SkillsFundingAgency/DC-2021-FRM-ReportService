@@ -8,6 +8,7 @@ using ESFA.DC.FRM.ReportService.Reports.Extensions;
 using ESFA.DC.FRM.ReportService.Reports.Model.ReferenceData;
 using ESFA.DC.FRM.ReportService.Reports.Model.Worksheets;
 using ESFA.DC.ILR.Model.Interface;
+using ESFA.DC.ILR2021.DataStore.EF;
 
 namespace ESFA.DC.FRM.ReportService.Reports.Worksheets.FRM09
 {
@@ -40,10 +41,10 @@ namespace ESFA.DC.FRM.ReportService.Reports.Worksheets.FRM09
             var withdrawanDeliveries = reportData.Learners
                 ?.SelectMany(l => l.LearningDeliveries.Where(ld =>
                         ld.CompStatus == _withdrawnCompStatus
-                        && ld.WithdrawReasonNullable == _withdrawnReasonCode
+                        && ld.WithdrawReason == _withdrawnReasonCode
                         && !ExcludedDelivery(ld, reportData.LARSLearningDeliveries)
                         && FundModel99Rule(ld)
-                        && ld.LearnActEndDateNullable <= ReportingConstants.EndOfYear)
+                        && ld.LearnActEndDate <= ReportingConstants.EndOfYear)
                     .Select(ld => new { Learner = l, LearningDelivery = ld }));
 
             if (withdrawanDeliveries == null)
@@ -55,10 +56,10 @@ namespace ESFA.DC.FRM.ReportService.Reports.Worksheets.FRM09
             {
                 if (!HasRestartDelivery(delivery.LearningDelivery, delivery.Learner, reportData.Learners))
                 {
-                    if (delivery.LearningDelivery.LearnActEndDateNullable != null && DaysBetween(delivery.LearningDelivery.LearnActEndDateNullable.Value, currentReturnEndDate) >= 90)
+                    if (delivery.LearningDelivery.LearnActEndDate != null && DaysBetween(delivery.LearningDelivery.LearnActEndDate.Value, currentReturnEndDate) >= 90)
                     {
-                        var pmOrgName = organisationNameDictionary.GetValueOrDefault(delivery.Learner.PMUKPRNNullable.GetValueOrDefault());
-                        var prevOrgName = organisationNameDictionary.GetValueOrDefault(delivery.Learner.PrevUKPRNNullable.GetValueOrDefault());
+                        var pmOrgName = organisationNameDictionary.GetValueOrDefault(delivery.Learner.PMUKPRN.GetValueOrDefault());
+                        var prevOrgName = organisationNameDictionary.GetValueOrDefault(delivery.Learner.PrevUKPRN.GetValueOrDefault());
 
                         models.Add(BuildModelForLearningDelivery(reportServiceContext, delivery.LearningDelivery, delivery.Learner, sofCodeDictionary, mcaDictionary, organisationNameDictionary, learnAimDictionary, returnPeriod, orgName, pmOrgName, prevOrgName));
                     }
@@ -68,7 +69,7 @@ namespace ESFA.DC.FRM.ReportService.Reports.Worksheets.FRM09
             return models;
         }
 
-        private Frm09ReportModel BuildModelForLearningDelivery(IReportServiceContext reportServiceContext, ILearningDelivery learningDelivery, ILearner learner,
+        private Frm09ReportModel BuildModelForLearningDelivery(IReportServiceContext reportServiceContext, LearningDelivery learningDelivery, Learner learner,
             Dictionary<string, string> sofCodeDictionary, Dictionary<string, int> mcaDictionary, Dictionary<long, string> organisationNameDictionary,
             Dictionary<string, ILARSLearningDelivery> learnAimDictionary, string returnPeriod, string orgName, string pmOrgName, string prevOrgName)
         {
@@ -79,7 +80,7 @@ namespace ESFA.DC.FRM.ReportService.Reports.Worksheets.FRM09
             var mcaShortCode = sofCodeDictionary.GetValueOrDefault(sofCode);
             var sofUkprn = mcaDictionary.GetValueOrDefault(mcaShortCode);
 
-            var partnerOrgName = organisationNameDictionary.GetValueOrDefault(learningDelivery.PartnerUKPRNNullable.GetValueOrDefault());
+            var partnerOrgName = organisationNameDictionary.GetValueOrDefault(learningDelivery.PartnerUKPRN.GetValueOrDefault());
             var learningAim = learnAimDictionary.GetValueOrDefault(learningDelivery.LearnAimRef);
 
             var sofOrgName = organisationNameDictionary.GetValueOrDefault(sofUkprn);
@@ -89,11 +90,11 @@ namespace ESFA.DC.FRM.ReportService.Reports.Worksheets.FRM09
                 Return = returnPeriod,
                 UKPRN = reportServiceContext.Ukprn,
                 OrgName = orgName,
-                PartnerUKPRN = learningDelivery.PartnerUKPRNNullable,
+                PartnerUKPRN = learningDelivery.PartnerUKPRN,
                 PartnerOrgName = partnerOrgName,
-                PrevUKPRN = learner.PrevUKPRNNullable,
+                PrevUKPRN = learner.PrevUKPRN,
                 PrevOrgName = prevOrgName,
-                PMUKPRN = learner.PMUKPRNNullable,
+                PMUKPRN = learner.PMUKPRN,
                 PMOrgName = pmOrgName,
                 DevolvedUKPRN = sofUkprn != 0 ? sofUkprn : (int?)null,
                 DevolvedOrgName = sofOrgName,
@@ -105,50 +106,50 @@ namespace ESFA.DC.FRM.ReportService.Reports.Worksheets.FRM09
                 AimSeqNumber = learningDelivery.AimSeqNumber,
                 AimTypeCode = learningDelivery.AimType,
                 LearnAimType = learningAim.LearnAimRefTypeDesc,
-                StdCode = learningDelivery.StdCodeNullable,
-                FworkCode = learningDelivery.FworkCodeNullable,
-                PwayCode = learningDelivery.PwayCodeNullable,
-                ProgType = learningDelivery.ProgTypeNullable,
+                StdCode = learningDelivery.StdCode,
+                FworkCode = learningDelivery.FworkCode,
+                PwayCode = learningDelivery.PwayCode,
+                ProgType = learningDelivery.ProgType,
                 LearnStartDate = learningDelivery.LearnStartDate,
-                OrigLearnStartDate = learningDelivery.OrigLearnStartDateNullable,
+                OrigLearnStartDate = learningDelivery.OrigLearnStartDate,
                 LearnPlanEndDate = learningDelivery.LearnPlanEndDate,
-                LearnActEndDate = learningDelivery.LearnActEndDateNullable,
+                LearnActEndDate = learningDelivery.LearnActEndDate,
                 CompStatus = learningDelivery.CompStatus,
-                WithdrawalCode = learningDelivery.WithdrawReasonNullable,
-                Outcome = learningDelivery.OutcomeNullable,
+                WithdrawalCode = learningDelivery.WithdrawReason,
+                Outcome = learningDelivery.Outcome,
                 FundModel = learningDelivery.FundModel,
                 SOFCode = sofCode,
                 AdvancedLoansIndicator = advancedLoansIndicator,
                 ResIndicator = resIndicator,
                 ProvSpecLearnDelMon = ProviderSpecLearningMonitorings(learner.ProviderSpecLearnerMonitorings),
                 ProvSpecDelMon = ProviderSpecDeliveryMonitorings(learningDelivery.ProviderSpecDeliveryMonitorings),
-                PriorLearnFundAdj = learningDelivery.PriorLearnFundAdjNullable,
-                OtherFundAdj = learningDelivery.OtherFundAdjNullable,
+                PriorLearnFundAdj = learningDelivery.PriorLearnFundAdj,
+                OtherFundAdj = learningDelivery.OtherFundAdj,
             };
         }
 
-        private bool ExcludedDelivery(ILearningDelivery learner, IReadOnlyCollection<ILARSLearningDelivery> larsLearningDeliveries)
+        private bool ExcludedDelivery(LearningDelivery learner, IReadOnlyCollection<ILARSLearningDelivery> larsLearningDeliveries)
         {
             return larsLearningDeliveries
                 .Any(x => x.LearnAimRef.CaseInsensitiveEquals(learner.LearnAimRef)
                           && x.LARSLearningDeliveryCategories.Any(ldc => _excludedCategories.Contains(ldc.CategoryRef)));
         }
 
-        private bool FundModel99Rule(ILearningDelivery delivery)
+        private bool FundModel99Rule(LearningDelivery delivery)
         {
             return delivery.FundModel != _fundModel99 || RetrieveFamCodeForType(delivery.LearningDeliveryFAMs, ADLLearnDelFamType) == _fundModel99ADLCode;
         }
 
-        private bool HasRestartDelivery(ILearningDelivery withdrawnLearningDelivery, ILearner withdrawnLearner, IReadOnlyCollection<ILearner> learners)
+        private bool HasRestartDelivery(LearningDelivery withdrawnLearningDelivery, Learner withdrawnLearner, IReadOnlyCollection<Learner> learners)
         {
             return learners.Where(l =>
                     (l.LearnRefNumber == withdrawnLearner.LearnRefNumber) ||
                     (l.PrevLearnRefNumber == withdrawnLearner.LearnRefNumber))
                 .SelectMany(l => l.LearningDeliveries.Where(ld =>
-                    ld.ProgTypeNullable == withdrawnLearningDelivery.ProgTypeNullable
-                    && ld.StdCodeNullable == withdrawnLearningDelivery.StdCodeNullable
-                    && ld.FworkCodeNullable == withdrawnLearningDelivery.FworkCodeNullable
-                    && ld.LearnStartDate >= withdrawnLearningDelivery.LearnActEndDateNullable)).Any();
+                    ld.ProgType == withdrawnLearningDelivery.ProgType
+                    && ld.StdCode == withdrawnLearningDelivery.StdCode
+                    && ld.FworkCode == withdrawnLearningDelivery.FworkCode
+                    && ld.LearnStartDate >= withdrawnLearningDelivery.LearnActEndDate)).Any();
         }
 
         public double DaysBetween(DateTime start, DateTime end)

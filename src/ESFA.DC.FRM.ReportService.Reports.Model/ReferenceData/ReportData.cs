@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using ESFA.DC.FRM.ReportService.Interfaces;
 using ESFA.DC.FRM.ReportService.Interfaces.ReferenceData;
-using ESFA.DC.ILR.Model.Interface;
+using ESFA.DC.ILR2021.DataStore.EF;
 
 namespace ESFA.DC.FRM.ReportService.Reports.Model.ReferenceData
 {
     public class ReportData : IReportData
     {
-        public IReadOnlyCollection<ILearner> Learners { get; set; }
+        public IReadOnlyCollection<Learner> Learners { get; set; }
 
         public IReadOnlyCollection<IOrganisation> Organisations { get; set; }
 

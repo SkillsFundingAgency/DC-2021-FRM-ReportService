@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using ESFA.DC.FRM.ReportService.Reports.Extensions;
 using ESFA.DC.ILR.Model.Interface;
+using ESFA.DC.ILR2021.DataStore.EF;
 
 namespace ESFA.DC.FRM.ReportService.Reports.Worksheets
 {
@@ -20,12 +21,12 @@ namespace ESFA.DC.FRM.ReportService.Reports.Worksheets
 //            return deliveryFams?.FirstOrDefault(f => f.LearnDelFAMType.CaseInsensitiveEquals(learnDelFamType))?.LearnDelFAMCode ?? string.Empty;
 //        }
 
-        protected string RetrieveFamCodeForType(IEnumerable<ILearningDeliveryFAM> deliveryFams, string learnDelFamType)
+        protected string RetrieveFamCodeForType(IEnumerable<LearningDeliveryFAM> deliveryFams, string learnDelFamType)
         {
             return deliveryFams?.FirstOrDefault(f => f.LearnDelFAMType.CaseInsensitiveEquals(learnDelFamType))?.LearnDelFAMCode ?? string.Empty;
         }
 
-        protected string ProviderSpecDeliveryMonitorings(IReadOnlyCollection<IProviderSpecDeliveryMonitoring> providerSpecDeliveryMonitorings)
+        protected string ProviderSpecDeliveryMonitorings(ICollection<ProviderSpecDeliveryMonitoring> providerSpecDeliveryMonitorings)
         {
             if (providerSpecDeliveryMonitorings == null || !providerSpecDeliveryMonitorings.Any())
             {
@@ -35,7 +36,7 @@ namespace ESFA.DC.FRM.ReportService.Reports.Worksheets
             return string.Join(";", providerSpecDeliveryMonitorings?.Select(x => x.ProvSpecDelMon));
         }
 
-        protected string ProviderSpecLearningMonitorings(IReadOnlyCollection<IProviderSpecLearnerMonitoring> providerSpecLearnerMonitorings)
+        protected string ProviderSpecLearningMonitorings(ICollection<ProviderSpecLearnerMonitoring> providerSpecLearnerMonitorings)
         {
             if (providerSpecLearnerMonitorings == null || !providerSpecLearnerMonitorings.Any())
             {

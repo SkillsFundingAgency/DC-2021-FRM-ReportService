@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using ESFA.DC.FRM.ReportService.Interfaces.ReferenceData;
-using ESFA.DC.ILR.Model.Interface;
+using ESFA.DC.ILR2021.DataStore.EF;
 
 namespace ESFA.DC.FRM.ReportService.Interfaces
 {
     public interface IReportData
     {
-        IReadOnlyCollection<ILearner> Learners { get; }
+        IReadOnlyCollection<Learner> Learners { get; }
 
         IReadOnlyCollection<IOrganisation> Organisations { get; }
 

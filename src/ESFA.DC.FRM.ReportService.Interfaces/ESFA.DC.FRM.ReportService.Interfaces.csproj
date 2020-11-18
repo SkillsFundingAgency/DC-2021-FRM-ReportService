@@ -5,8 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Aspose.Cells" Version="19.9.0" />
-    <PackageReference Include="ESFA.DC.ILR.2021.Model.Interface" Version="0.1.0-beta0001" />
+    <PackageReference Include="Aspose.Cells" Version="20.11.0" />
+    <PackageReference Include="ESFA.DC.ILR.2021.Database.EF" Version="0.1.165" />
+    <PackageReference Include="ESFA.DC.ILR.2021.Model.Interface" Version="0.1.6-beta0001" />
   </ItemGroup>
 
 </Project>

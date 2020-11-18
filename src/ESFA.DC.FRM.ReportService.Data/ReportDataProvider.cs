@@ -5,7 +5,7 @@ using ESFA.DC.FRM.ReportService.Interfaces;
 using ESFA.DC.FRM.ReportService.Interfaces.DataProvider;
 using ESFA.DC.FRM.ReportService.Interfaces.ReferenceData;
 using ESFA.DC.FRM.ReportService.Reports.Model.ReferenceData;
-using ESFA.DC.ILR.Model.Interface;
+using ESFA.DC.ILR2021.DataStore.EF;
 
 namespace ESFA.DC.FRM.ReportService.Data
 {
@@ -16,9 +16,9 @@ namespace ESFA.DC.FRM.ReportService.Data
         private readonly IDataProvider<IMcaDevolvedContract> _mcaDevolvedContractProvider;
         private readonly IDataProvider<ILARSLearningDelivery> _larsLearningDeliveryProvider;
         private readonly IDataProvider<IReturnPeriod> _returnPeriodProvider;
-        private readonly IDataProvider<ILearner> _learnerProvider;
+        private readonly IDataProvider<Learner> _learnerProvider;
 
-        public ReportDataProvider(IDataProvider<IOrganisation> organisationProvider, IDataProvider<IMcaGlaSofLookup> mcaGlaLookupProvider, IDataProvider<IMcaDevolvedContract> mcaDevolvedContractProvider, IDataProvider<ILARSLearningDelivery> larsLearningDeliveryProvider, IDataProvider<IReturnPeriod> returnPeriodProvider, IDataProvider<ILearner> learnerProvider)
+        public ReportDataProvider(IDataProvider<IOrganisation> organisationProvider, IDataProvider<IMcaGlaSofLookup> mcaGlaLookupProvider, IDataProvider<IMcaDevolvedContract> mcaDevolvedContractProvider, IDataProvider<ILARSLearningDelivery> larsLearningDeliveryProvider, IDataProvider<IReturnPeriod> returnPeriodProvider, IDataProvider<Learner> learnerProvider)
         {
             _organisationProvider = organisationProvider;
             _mcaGlaLookupProvider = mcaGlaLookupProvider;

@@ -6,6 +6,7 @@ using ESFA.DC.FRM.ReportService.Interfaces.ReferenceData;
 using ESFA.DC.FRM.ReportService.Reports.Extensions;
 using ESFA.DC.FRM.ReportService.Reports.Model.Worksheets;
 using ESFA.DC.ILR.Model.Interface;
+using ESFA.DC.ILR2021.DataStore.EF;
 
 namespace ESFA.DC.FRM.ReportService.Reports.Worksheets.FRM08
 {
@@ -54,7 +55,7 @@ namespace ESFA.DC.FRM.ReportService.Reports.Worksheets.FRM08
                     continue;
                 }
 
-                var learnActEndDate = delivery.LearningDelivery.LearnActEndDateNullable;
+                var learnActEndDate = delivery.LearningDelivery.LearnActEndDate;
 
                 if (learnActEndDate.HasValue && DaysBetween(learnActEndDate.Value, currentReturnEndDate) >= 365)
                 {
@@ -62,11 +63,9 @@ namespace ESFA.DC.FRM.ReportService.Reports.Worksheets.FRM08
                     var sofCode = RetrieveFamCodeForType(delivery.LearningDelivery.LearningDeliveryFAMs, SOFLearnDelFamType);
                     var resIndicator = RetrieveFamCodeForType(delivery.LearningDelivery.LearningDeliveryFAMs, RESLearnDelFamType);
 
-                    var pmOrgName = organisationNameDictionary.GetValueOrDefault(delivery.Learner.PMUKPRNNullable
-                        .GetValueOrDefault());
-                    var prevOrgName = organisationNameDictionary.GetValueOrDefault(delivery.Learner.PrevUKPRNNullable
-                            .GetValueOrDefault());
-                    var partnerOrgName = organisationNameDictionary.GetValueOrDefault(delivery.LearningDelivery.PartnerUKPRNNullable.GetValueOrDefault());
+                    var pmOrgName = organisationNameDictionary.GetValueOrDefault(delivery.Learner.PMUKPRN.GetValueOrDefault());
+                    var prevOrgName = organisationNameDictionary.GetValueOrDefault(delivery.Learner.PrevUKPRN.GetValueOrDefault());
+                    var partnerOrgName = organisationNameDictionary.GetValueOrDefault(delivery.LearningDelivery.PartnerUKPRN.GetValueOrDefault());
                     var learnAim = learnAimDictionary.GetValueOrDefault(delivery.LearningDelivery.LearnAimRef);
 
                     models.Add(new Frm08ReportModel
@@ -74,11 +73,11 @@ namespace ESFA.DC.FRM.ReportService.Reports.Worksheets.FRM08
                         Return = returnPeriod,
                         UKPRN = reportServiceContext.Ukprn,
                         OrgName = orgName,
-                        PartnerUKPRN = delivery.LearningDelivery.PartnerUKPRNNullable,
+                        PartnerUKPRN = delivery.LearningDelivery.PartnerUKPRN,
                         PartnerOrgName = partnerOrgName,
-                        PrevUKPRN = delivery.Learner.PrevUKPRNNullable,
+                        PrevUKPRN = delivery.Learner.PrevUKPRN,
                         PrevOrgName = prevOrgName,
-                        PMUKPRN = delivery.Learner.PMUKPRNNullable,
+                        PMUKPRN = delivery.Learner.PMUKPRN,
                         PMOrgName = pmOrgName,
                         ULN = delivery.Learner.ULN,
                         LearnRefNumber = delivery.Learner.LearnRefNumber,
@@ -88,24 +87,24 @@ namespace ESFA.DC.FRM.ReportService.Reports.Worksheets.FRM08
                         AimSeqNumber = delivery.LearningDelivery.AimSeqNumber,
                         AimTypeCode = delivery.LearningDelivery.AimType,
                         LearnAimType = learnAim.LearnAimRefTypeDesc,
-                        StdCode = delivery.LearningDelivery.StdCodeNullable,
-                        FworkCode = delivery.LearningDelivery.FworkCodeNullable,
-                        PwayCode = delivery.LearningDelivery.PwayCodeNullable,
-                        ProgType = delivery.LearningDelivery.ProgTypeNullable,
+                        StdCode = delivery.LearningDelivery.StdCode,
+                        FworkCode = delivery.LearningDelivery.FworkCode,
+                        PwayCode = delivery.LearningDelivery.PwayCode,
+                        ProgType = delivery.LearningDelivery.ProgType,
                         LearnStartDate = delivery.LearningDelivery.LearnStartDate,
-                        OrigLearnStartDate = delivery.LearningDelivery.OrigLearnStartDateNullable,
+                        OrigLearnStartDate = delivery.LearningDelivery.OrigLearnStartDate,
                         LearnPlanEndDate = delivery.LearningDelivery.LearnPlanEndDate,
-                        LearnActEndDate = delivery.LearningDelivery.LearnActEndDateNullable,
+                        LearnActEndDate = delivery.LearningDelivery.LearnActEndDate,
                         CompStatus = delivery.LearningDelivery.CompStatus,
-                        Outcome = delivery.LearningDelivery.OutcomeNullable,
+                        Outcome = delivery.LearningDelivery.Outcome,
                         FundModel = delivery.LearningDelivery.FundModel,
                         SOFCode = sofCode,
                         AdvancedLoansIndicator = advancedLoansIndicator,
                         ResIndicator = resIndicator,
                         ProvSpecLearnDelMon = ProviderSpecDeliveryMonitorings(delivery.LearningDelivery.ProviderSpecDeliveryMonitorings),
                         ProvSpecDelMon = ProviderSpecLearningMonitorings(delivery.Learner.ProviderSpecLearnerMonitorings),
-                        PriorLearnFundAdj = delivery.LearningDelivery.PriorLearnFundAdjNullable,
-                        OtherFundAdj = delivery.LearningDelivery.OtherFundAdjNullable,
+                        PriorLearnFundAdj = delivery.LearningDelivery.PriorLearnFundAdj,
+                        OtherFundAdj = delivery.LearningDelivery.OtherFundAdj,
                     });
                 }
             }
@@ -113,40 +112,40 @@ namespace ESFA.DC.FRM.ReportService.Reports.Worksheets.FRM08
             return models;
         }
 
-        private ILearningDelivery GetRestartDelivery(ILearningDelivery breakLearningDelivery, ILearner learner)
+        private LearningDelivery GetRestartDelivery(LearningDelivery breakLearningDelivery, Learner learner)
         {
             return learner?.LearningDeliveries?.FirstOrDefault(ld => ld.LearnAimRef.CaseInsensitiveEquals(breakLearningDelivery.LearnAimRef)
-                                                                   && ld.ProgTypeNullable == breakLearningDelivery.ProgTypeNullable
-                                                                   && ld.StdCodeNullable == breakLearningDelivery.StdCodeNullable
-                                                                   && ld.FworkCodeNullable == breakLearningDelivery.FworkCodeNullable
+                                                                   && ld.ProgType == breakLearningDelivery.ProgType
+                                                                   && ld.StdCode == breakLearningDelivery.StdCode
+                                                                   && ld.FworkCode == breakLearningDelivery.FworkCode
                                                                    && HasRestartFAM(ld.LearningDeliveryFAMs)
                                                                    && WithMatchingStartDates(breakLearningDelivery, ld));
         }
 
-        private bool HasRestartFAM(IReadOnlyCollection<ILearningDeliveryFAM> learningDeliveryFams)
+        private bool HasRestartFAM(ICollection<LearningDeliveryFAM> learningDeliveryFams)
         {
             return learningDeliveryFams?.Any(f => f.LearnDelFAMType.Equals(RESLearnDelFamType, StringComparison.OrdinalIgnoreCase))
                 ?? false;
         }
 
-        private bool FundModel99Rule(ILearningDelivery delivery)
+        private bool FundModel99Rule(LearningDelivery delivery)
         {
             return delivery.FundModel != _fundModel99 || RetrieveFamCodeForType(delivery.LearningDeliveryFAMs, ADLLearnDelFamType) == _fundModel99ADLCode;
         }
 
-        private bool WithMatchingStartDates(ILearningDelivery breakLearningDelivery, ILearningDelivery learningDelivery)
+        private bool WithMatchingStartDates(LearningDelivery breakLearningDelivery, LearningDelivery learningDelivery)
         {
-            if (learningDelivery?.OrigLearnStartDateNullable == null)
+            if (learningDelivery?.OrigLearnStartDate == null)
             {
                 return false;
             }
 
-            return (learningDelivery.OrigLearnStartDateNullable.Value == breakLearningDelivery.LearnStartDate
-                || learningDelivery.OrigLearnStartDateNullable.Value == breakLearningDelivery.OrigLearnStartDateNullable)
-                && learningDelivery.LearnStartDate >= breakLearningDelivery.LearnActEndDateNullable;
+            return (learningDelivery.OrigLearnStartDate.Value == breakLearningDelivery.LearnStartDate
+                || learningDelivery.OrigLearnStartDate.Value == breakLearningDelivery.OrigLearnStartDate)
+                && learningDelivery.LearnStartDate >= breakLearningDelivery.LearnActEndDate;
         }
 
-        private bool ExcludedDelivery(ILearningDelivery learner, IReadOnlyCollection<ILARSLearningDelivery> larsLearningDeliveries)
+        private bool ExcludedDelivery(LearningDelivery learner, IReadOnlyCollection<ILARSLearningDelivery> larsLearningDeliveries)
         {
             return larsLearningDeliveries?
                 .Any(x => x.LearnAimRef.CaseInsensitiveEquals(learner.LearnAimRef)

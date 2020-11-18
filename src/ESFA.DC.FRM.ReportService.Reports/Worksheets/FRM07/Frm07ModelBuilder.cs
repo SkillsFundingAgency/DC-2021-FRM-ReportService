@@ -7,6 +7,7 @@ using ESFA.DC.FRM.ReportService.Reports.Extensions;
 using ESFA.DC.FRM.ReportService.Reports.Model.ReferenceData;
 using ESFA.DC.FRM.ReportService.Reports.Model.Worksheets;
 using ESFA.DC.ILR.Model.Interface;
+using ESFA.DC.ILR2021.DataStore.EF;
 
 namespace ESFA.DC.FRM.ReportService.Reports.Worksheets.FRM07
 {
@@ -54,8 +55,8 @@ namespace ESFA.DC.FRM.ReportService.Reports.Worksheets.FRM07
 
                     if (restartDelivery != null)
                     {
-                        var pmOrgName = organisationNameDictionary.GetValueOrDefault(delivery.Learner.PMUKPRNNullable.GetValueOrDefault());
-                        var prevOrgName = organisationNameDictionary.GetValueOrDefault(delivery.Learner.PrevUKPRNNullable.GetValueOrDefault());
+                        var pmOrgName = organisationNameDictionary.GetValueOrDefault(delivery.Learner.PMUKPRN.GetValueOrDefault());
+                        var prevOrgName = organisationNameDictionary.GetValueOrDefault(delivery.Learner.PrevUKPRN.GetValueOrDefault());
 
                         models.Add(BuildModelForLearningDelivery(reportServiceContext, restartDelivery, delivery.Learner, sofCodeDictionary, mcaDictionary, organisationNameDictionary, learnAimDictionary, returnPeriod, orgName, pmOrgName, prevOrgName));
                     }
@@ -66,7 +67,7 @@ namespace ESFA.DC.FRM.ReportService.Reports.Worksheets.FRM07
             return models;
         }
 
-        private Frm07ReportModel BuildModelForLearningDelivery(IReportServiceContext reportServiceContext, ILearningDelivery learningDelivery, ILearner learner,
+        private Frm07ReportModel BuildModelForLearningDelivery(IReportServiceContext reportServiceContext, LearningDelivery learningDelivery, Learner learner,
             Dictionary<string, string> sofCodeDictionary, Dictionary<string, int> mcaDictionary, Dictionary<long, string> organisationNameDictionary,
             Dictionary<string, ILARSLearningDelivery> learnAimDictionary, string returnPeriod, string orgName, string pmOrgName, string prevOrgName)
         {
@@ -77,7 +78,7 @@ namespace ESFA.DC.FRM.ReportService.Reports.Worksheets.FRM07
             var mcaShortCode = sofCodeDictionary.GetValueOrDefault(sofCode);
             var sofUkprn = mcaDictionary.GetValueOrDefault(mcaShortCode);
 
-            var partnerOrgName = organisationNameDictionary.GetValueOrDefault(learningDelivery.PartnerUKPRNNullable.GetValueOrDefault());
+            var partnerOrgName = organisationNameDictionary.GetValueOrDefault(learningDelivery.PartnerUKPRN.GetValueOrDefault());
             var learningAim = learnAimDictionary.GetValueOrDefault(learningDelivery.LearnAimRef);
 
             var sofOrgName = organisationNameDictionary.GetValueOrDefault(sofUkprn);
@@ -87,11 +88,11 @@ namespace ESFA.DC.FRM.ReportService.Reports.Worksheets.FRM07
                 Return = returnPeriod,
                 UKPRN = reportServiceContext.Ukprn,
                 OrgName = orgName,
-                PartnerUKPRN = learningDelivery.PartnerUKPRNNullable,
+                PartnerUKPRN = learningDelivery.PartnerUKPRN,
                 PartnerOrgName = partnerOrgName,
-                PrevUKPRN = learner.PrevUKPRNNullable,
+                PrevUKPRN = learner.PrevUKPRN,
                 PrevOrgName = prevOrgName,
-                PMUKPRN = learner.PMUKPRNNullable,
+                PMUKPRN = learner.PMUKPRN,
                 PMOrgName = pmOrgName,
                 DevolvedUKPRN = sofUkprn != 0 ? sofUkprn : (int?)null,
                 DevolvedOrgName = sofOrgName,
@@ -104,65 +105,65 @@ namespace ESFA.DC.FRM.ReportService.Reports.Worksheets.FRM07
                 AimSeqNumber = learningDelivery.AimSeqNumber,
                 AimTypeCode = learningDelivery.AimType,
                 LearnAimType = learningAim.LearnAimRefTypeDesc,
-                StdCode = learningDelivery.StdCodeNullable,
-                FworkCode = learningDelivery.FworkCodeNullable,
-                PwayCode = learningDelivery.PwayCodeNullable,
-                ProgType = learningDelivery.ProgTypeNullable,
+                StdCode = learningDelivery.StdCode,
+                FworkCode = learningDelivery.FworkCode,
+                PwayCode = learningDelivery.PwayCode,
+                ProgType = learningDelivery.ProgType,
                 LearnStartDate = learningDelivery.LearnStartDate,
-                OrigLearnStartDate = learningDelivery.OrigLearnStartDateNullable,
+                OrigLearnStartDate = learningDelivery.OrigLearnStartDate,
                 LearnPlanEndDate = learningDelivery.LearnPlanEndDate,
-                LearnActEndDate = learningDelivery.LearnActEndDateNullable,
+                LearnActEndDate = learningDelivery.LearnActEndDate,
                 CompStatus = learningDelivery.CompStatus,
-                Outcome = learningDelivery.OutcomeNullable,
+                Outcome = learningDelivery.Outcome,
                 FundModel = learningDelivery.FundModel,
                 SOFCode = sofCode,
                 AdvancedLoansIndicator = advancedLoansIndicator,
                 ResIndicator = resIndicator,
                 ProvSpecLearnDelMon = ProviderSpecDeliveryMonitorings(learningDelivery.ProviderSpecDeliveryMonitorings),
                 ProvSpecDelMon = ProviderSpecLearningMonitorings(learner.ProviderSpecLearnerMonitorings),
-                PriorLearnFundAdj = learningDelivery.PriorLearnFundAdjNullable,
-                OtherFundAdj = learningDelivery.OtherFundAdjNullable,
+                PriorLearnFundAdj = learningDelivery.PriorLearnFundAdj,
+                OtherFundAdj = learningDelivery.OtherFundAdj,
             };
         }
 
-        private bool ExcludedDelivery(ILearningDelivery learner, IReadOnlyCollection<ILARSLearningDelivery> larsLearningDeliveries)
+        private bool ExcludedDelivery(LearningDelivery learner, IReadOnlyCollection<ILARSLearningDelivery> larsLearningDeliveries)
         {
             return larsLearningDeliveries
                 .Any(x => x.LearnAimRef.CaseInsensitiveEquals(learner.LearnAimRef)
                           && x.LARSLearningDeliveryCategories.Any(ldc => _excludedCategories.Contains(ldc.CategoryRef)));
         }
 
-        private ILearningDelivery GetRestartDelivery(ILearningDelivery breakLearningDelivery, ILearner learner)
+        private LearningDelivery GetRestartDelivery(LearningDelivery breakLearningDelivery, Learner learner)
         {
             return learner.LearningDeliveries.FirstOrDefault(ld => ld.LearnPlanEndDate == breakLearningDelivery.LearnPlanEndDate
                                                              && ld.LearnAimRef.CaseInsensitiveEquals(breakLearningDelivery.LearnAimRef)
-                                                             && ld.ProgTypeNullable == breakLearningDelivery.ProgTypeNullable
-                                                             && ld.StdCodeNullable == breakLearningDelivery.StdCodeNullable
-                                                             && ld.FworkCodeNullable == breakLearningDelivery.FworkCodeNullable
+                                                             && ld.ProgType == breakLearningDelivery.ProgType
+                                                             && ld.StdCode == breakLearningDelivery.StdCode
+                                                             && ld.FworkCode == breakLearningDelivery.FworkCode
                                                              && HasRestartFAM(ld.LearningDeliveryFAMs)
                                                              && WithMatchingStartDates(breakLearningDelivery, ld));
         }
 
-        private bool HasRestartFAM(IReadOnlyCollection<ILearningDeliveryFAM> learningDeliveryFams)
+        private bool HasRestartFAM(ICollection<LearningDeliveryFAM> learningDeliveryFams)
         {
             return learningDeliveryFams?.Any(f => f.LearnDelFAMType.CaseInsensitiveEquals(RESLearnDelFamType)) ?? false;
         }
 
-        private bool FundModel99Rule(ILearningDelivery delivery)
+        private bool FundModel99Rule(LearningDelivery delivery)
         {
             return delivery.FundModel != _fundModel99 || RetrieveFamCodeForType(delivery.LearningDeliveryFAMs, ADLLearnDelFamType) == _fundModel99ADLCode;
         }
 
-        private bool WithMatchingStartDates(ILearningDelivery breakLearningDelivery, ILearningDelivery learningDelivery)
+        private bool WithMatchingStartDates(LearningDelivery breakLearningDelivery, LearningDelivery learningDelivery)
         {
-            if (learningDelivery.OrigLearnStartDateNullable == null)
+            if (learningDelivery.OrigLearnStartDate == null)
             {
                 return false;
             }
 
-            return (learningDelivery.OrigLearnStartDateNullable == breakLearningDelivery.LearnStartDate
-                    || learningDelivery.OrigLearnStartDateNullable == breakLearningDelivery.OrigLearnStartDateNullable)
-                   && learningDelivery.LearnStartDate >= breakLearningDelivery.LearnActEndDateNullable;
+            return (learningDelivery.OrigLearnStartDate == breakLearningDelivery.LearnStartDate
+                    || learningDelivery.OrigLearnStartDate == breakLearningDelivery.OrigLearnStartDate)
+                   && learningDelivery.LearnStartDate >= breakLearningDelivery.LearnActEndDate;
         }
     }
 }

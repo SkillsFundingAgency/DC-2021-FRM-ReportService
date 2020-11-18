@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="ESFA.DC.ILR.2021.Database.EF" Version="0.1.165" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\ESFA.DC.FRM.ReportService.Interfaces\ESFA.DC.FRM.ReportService.Interfaces.csproj" />
   </ItemGroup>
 
