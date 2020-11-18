@@ -16,11 +16,11 @@
     <Parameter Name="FCSConnectionString" Value="__FCSConnectionString__" />
     <Parameter Name="ILR1920DataStoreConnectionString" Value="__ILR1920DbConnectionString__" />
     <Parameter Name="ILR2021DataStoreConnectionString" Value="__ILR2021DbConnectionString__" />
-    <Parameter Name="PostcodesConnectionString" Value="__PostcodesConnectingString__"/>
+    <Parameter Name="PostcodesConnectionString" Value="__PostcodesConnectingString__" />
     <Parameter Name="LarsConnectionString" Value="__LarsConnectionString__" />
     <Parameter Name="OrgConnectionString" Value="__OrgConnectionString__" />
     <Parameter Name="JobQueueManagerConnectionString" Value="__JobQueueManagerConnectionString__" />
-    <Parameter Name="AzureBlobConnectionString" Value="" />
-    <Parameter Name="AzureBlobContainerName" Value="" />
+    <Parameter Name="AzureBlobConnectionString" Value="__AzureBlobConnectionString__" />
+    <Parameter Name="AzureBlobContainerName" Value="__AzureBlobContainerName__" />
   </Parameters>
 </Application>
