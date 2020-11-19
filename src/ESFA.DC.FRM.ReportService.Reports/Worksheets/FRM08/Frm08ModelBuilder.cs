@@ -153,7 +153,7 @@ namespace ESFA.DC.FRM.ReportService.Reports.Worksheets.FRM08
                 ?? false;
         }
 
-        public double DaysBetween(DateTime start, DateTime end)
+        private double DaysBetween(DateTime start, DateTime end)
         {
             return (end - start).TotalDays;
         }

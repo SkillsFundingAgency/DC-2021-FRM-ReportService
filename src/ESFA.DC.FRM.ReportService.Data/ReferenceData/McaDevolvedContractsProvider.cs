@@ -32,7 +32,7 @@ namespace ESFA.DC.FRM.ReportService.Data.ReferenceData
         {
             using (var connection = _sqlConnectionFunc())
             {
-                return (await connection.QueryAsync<McaDevolvedContract>(_sql, new { reportServiceContext.Ukprn } )).ToList();
+                return (await connection.QueryAsync<McaDevolvedContract>(_sql, new { reportServiceContext.Ukprn })).ToList();
             }
         }
     }

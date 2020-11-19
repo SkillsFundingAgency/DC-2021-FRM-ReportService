@@ -5,6 +5,11 @@ namespace ESFA.DC.FRM.ReportService.Reports.Worksheets.FRM07
 {
     public class Frm07RenderService : BaseFrmRenderService<Frm07ReportModel>
     {
+        public Frm07RenderService()
+            : base("FRM07")
+        {
+        }
+
         protected override object[] ColumnNames
             => new object[]
             {
@@ -49,14 +54,10 @@ namespace ESFA.DC.FRM.ReportService.Reports.Worksheets.FRM07
                 "Other Funding Adjustment"
             };
 
-        public Frm07RenderService()
-            : base("FRM07")
-        {
-        }
-
         protected override Worksheet RenderReportRow(Worksheet worksheet, int row, Frm07ReportModel model)
         {
-            worksheet.Cells.ImportObjectArray(new object[]
+            worksheet.Cells.ImportObjectArray(
+            new object[]
             {
                 _reportID,
                 model.Return,
@@ -97,7 +98,10 @@ namespace ESFA.DC.FRM.ReportService.Reports.Worksheets.FRM07
                 model.ProvSpecLearnDelMon,
                 model.PriorLearnFundAdj,
                 model.OtherFundAdj
-            }, row, 0, false);
+            },
+            row,
+            0,
+            false);
 
             return worksheet;
         }

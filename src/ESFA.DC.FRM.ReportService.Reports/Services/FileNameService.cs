@@ -40,8 +40,8 @@ namespace ESFA.DC.FRM.ReportService.Reports.Services
             return stringBuilder.ToString();
         }
 
-        protected virtual string GetPath(IReportServiceContext reportServiceContext) => $"{reportServiceContext.Ukprn}/{reportServiceContext.JobId}/";
-
         public string GetExtension(OutputTypes outputType) => _extensionsDictionary[outputType];
+
+        protected virtual string GetPath(IReportServiceContext reportServiceContext) => $"{reportServiceContext.Ukprn}/{reportServiceContext.JobId}/";
     }
 }

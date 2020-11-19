@@ -9,17 +9,7 @@ namespace ESFA.DC.FRM.ReportService.Reports.Summary
 {
     public class FrmSummaryRenderService : IRenderService<ISummaryModel>
     {
-        public string[] TableColumnNames =>
-            new string[]
-            {
-                "Report",
-                "Title",
-                "",
-                "Number Of Queries"
-            };
-
-
-        private string TableHeading = "Funding Rules Monitoring";
+        private readonly string _tableHeading = "Funding Rules Monitoring";
 
         private readonly StyleFlag _styleFlag = new StyleFlag()
         {
@@ -44,6 +34,15 @@ namespace ESFA.DC.FRM.ReportService.Reports.Summary
             ConfigureStyles();
         }
 
+        public string[] TableColumnNames =>
+            new string[]
+            {
+                "Report",
+                "Title",
+                string.Empty,
+                "Number Of Queries"
+            };
+
         public Worksheet Render(ISummaryModel model, Worksheet worksheet)
         {
             worksheet.Cells.StandardHeight = 15;
@@ -57,16 +56,20 @@ namespace ESFA.DC.FRM.ReportService.Reports.Summary
         {
             foreach (var entry in frmSummaryReportModel)
             {
-                worksheet.Cells.ImportTwoDimensionArray(new object[,]
-                {
-                    { entry.Key, entry.Value }
-                }, row, 0);
+                worksheet.Cells.ImportTwoDimensionArray(
+                    new object[,]
+                    {
+                        { entry.Key, entry.Value }
+                    },
+                    row,
+                    0);
 
                 ApplyStyleToRow(worksheet, row, column, 1, 2, _headerStyle);
 
                 row++;
             }
-            worksheet.Cells["A7"].PutValue(TableHeading);
+
+            worksheet.Cells["A7"].PutValue(_tableHeading);
             ApplyStyleToRow(worksheet, 6, 0, 1, 1, _tableTitleStyle);
             return worksheet;
         }
@@ -94,17 +97,24 @@ namespace ESFA.DC.FRM.ReportService.Reports.Summary
             worksheet.Cells.Merge(row, 1, 1, 2);
             worksheet.Cells.Merge(row, 3, 1, 4);
 
-            ImportTableOptions tableOptions = new ImportTableOptions();
-            tableOptions.CheckMergedCells = true;
-            tableOptions.IsFieldNameShown = false;
+            ImportTableOptions tableOptions = new ImportTableOptions
+            {
+                CheckMergedCells = true,
+                IsFieldNameShown = false
+            };
 
             worksheet.Cells.ImportCustomObjects(frmSummaryReport.SummaryRows.ToList(), row, 0, tableOptions);
-            worksheet.Cells.ImportObjectArray(new object[] {
-                "Total",
-                "All Records",
-                "",
-                frmSummaryReport.TotalRowCount
-            }, row + frmSummaryReport.SummaryRows.Count, 0, false);
+            worksheet.Cells.ImportObjectArray(
+                new object[]
+                {
+                    "Total",
+                    "All Records",
+                    string.Empty,
+                    frmSummaryReport.TotalRowCount
+                },
+                row + frmSummaryReport.SummaryRows.Count,
+                0,
+                false);
 
             ApplyStyleToRow(worksheet, row, 0, frmSummaryReport.SummaryRows.Count, 7, _tableRowStyle);
             ApplyStyleToRow(worksheet, row + frmSummaryReport.SummaryRows.Count, 0, 1, 7, _tableTotalStyle);
@@ -118,16 +128,13 @@ namespace ESFA.DC.FRM.ReportService.Reports.Summary
 
         private void ConfigureStyles()
         {
-
             _headerStyle.Font.Size = 10;
             _headerStyle.Font.IsBold = true;
             _headerStyle.Font.Name = "Arial";
 
-
             _tableTitleStyle.Font.Size = 12;
             _tableTitleStyle.Font.IsBold = true;
             _tableTitleStyle.Font.Name = "Arial";
-
 
             _tableHeaderStyle.Font.Size = 9;
             _tableHeaderStyle.Font.IsBold = true;

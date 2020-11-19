@@ -17,8 +17,6 @@ namespace ESFA.DC.FRM.ReportService.Reports.Worksheets
         private readonly string _title;
         private readonly string _tabName;
 
-        public string TaskName { get; }
-
         protected BaseFrmWorksheet(
             IExcelFileService excelService,
             IModelBuilder<IEnumerable<TModel>> fundingRulesMonitoringModelBuilder,
@@ -35,6 +33,8 @@ namespace ESFA.DC.FRM.ReportService.Reports.Worksheets
 
             TaskName = taskName;
         }
+
+        public string TaskName { get; }
 
         public virtual ISummaryRow Generate(Workbook workbook, IReportServiceContext reportServiceContext, IReportData reportData, CancellationToken cancellationToken)
         {

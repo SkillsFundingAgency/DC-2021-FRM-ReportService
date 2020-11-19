@@ -12,7 +12,8 @@ namespace ESFA.DC.FRM.ReportService.Reports.Worksheets.FRM07
             IExcelFileService excelService,
             IModelBuilder<IEnumerable<Frm07ReportModel>> fundingRulesMonitoringModelBuilder,
             IRenderService<IEnumerable<Frm07ReportModel>> fundingRulesMonitoringRenderService)
-            : base(excelService,
+            : base(
+                excelService,
                 fundingRulesMonitoringModelBuilder,
                 fundingRulesMonitoringRenderService,
                 "TaskGenerateFundingRulesMonitoring07Report",

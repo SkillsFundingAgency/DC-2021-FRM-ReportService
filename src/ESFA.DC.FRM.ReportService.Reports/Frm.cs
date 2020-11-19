@@ -18,7 +18,7 @@ namespace ESFA.DC.FRM.ReportService.Reports
         private readonly IModelBuilder<ISummaryModel> _summaryPageModelBuilder;
         private readonly IRenderService<ISummaryModel> _summarPageRenderService;
 
-        private string SummaryName => "Summary";
+        private readonly string SummaryName = "Summary";
 
         public Frm(IDictionary<string, IWorksheetReport> worksheets, IExcelFileService excelFileService, IFileNameService fileNameService, IReportDataProvider reportDataProvider, IModelBuilder<ISummaryModel> summaryPageModelBuilder, IRenderService<ISummaryModel> summaryPageRenderService)
         {
@@ -34,7 +34,7 @@ namespace ESFA.DC.FRM.ReportService.Reports
 
         public async Task<string> GenerateAsync(IReportServiceContext reportServiceContext, CancellationToken cancellationToken)
         {
-            var fileName = _fileNameService.GetFilename(reportServiceContext, "", OutputTypes.Excel);
+            var fileName = _fileNameService.GetFilename(reportServiceContext, string.Empty, OutputTypes.Excel);
 
             var reportData = await _reportDataProvider.ProvideAsync(reportServiceContext, cancellationToken);
 

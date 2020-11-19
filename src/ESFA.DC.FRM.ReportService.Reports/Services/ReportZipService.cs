@@ -10,12 +10,12 @@ namespace ESFA.DC.FRM.ReportService.Reports.Services
 {
     public class ReportZipService : IReportZipService
     {
+        private const string ReportsZipName = "Reports";
+        private const int BufferSize = 8096;
+
         private readonly IFileNameService _fileNameService;
         private readonly IZipArchiveService _zipArchiveService;
         private readonly IFileService _fileService;
-
-        private const string ReportsZipName = "Reports";
-        private const int BufferSize = 8096;
 
         public ReportZipService(IFileNameService fileNameService, IZipArchiveService zipArchiveService, IFileService fileService)
         {

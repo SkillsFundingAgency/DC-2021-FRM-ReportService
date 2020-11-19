@@ -30,8 +30,7 @@ namespace ESFA.DC.FRM.ReportService.Reports.Worksheets.FRM09
             var organisationNameDictionary = reportData.Organisations.ToDictionary(k => k.Ukprn, v => v.Name);
             var learnAimDictionary = reportData.LARSLearningDeliveries.ToDictionary(k => k.LearnAimRef, v => v, StringComparer.OrdinalIgnoreCase);
             var sofCodeDictionary = reportData.McaGlaSofLookups.Where(l => DevolvedCodes.Contains(l.SofCode)).ToDictionary(k => k.SofCode, v => v.McaGlaShortCode);
-            var mcaDictionary = reportData.McaDevolvedContracts.ToDictionary(k => k.McaGlaShortCode, v => v.Ukprn,
-                StringComparer.OrdinalIgnoreCase);
+            var mcaDictionary = reportData.McaDevolvedContracts.ToDictionary(k => k.McaGlaShortCode, v => v.Ukprn, StringComparer.OrdinalIgnoreCase);
 
             var orgName = organisationNameDictionary.GetValueOrDefault(reportServiceContext.Ukprn);
 
@@ -69,9 +68,18 @@ namespace ESFA.DC.FRM.ReportService.Reports.Worksheets.FRM09
             return models;
         }
 
-        private Frm09ReportModel BuildModelForLearningDelivery(IReportServiceContext reportServiceContext, LearningDelivery learningDelivery, Learner learner,
-            Dictionary<string, string> sofCodeDictionary, Dictionary<string, int> mcaDictionary, Dictionary<long, string> organisationNameDictionary,
-            Dictionary<string, ILARSLearningDelivery> learnAimDictionary, string returnPeriod, string orgName, string pmOrgName, string prevOrgName)
+        private Frm09ReportModel BuildModelForLearningDelivery(
+            IReportServiceContext reportServiceContext,
+            LearningDelivery learningDelivery,
+            Learner learner,
+            Dictionary<string, string> sofCodeDictionary,
+            Dictionary<string, int> mcaDictionary,
+            Dictionary<long, string> organisationNameDictionary,
+            Dictionary<string, ILARSLearningDelivery> learnAimDictionary,
+            string returnPeriod,
+            string orgName,
+            string pmOrgName,
+            string prevOrgName)
         {
             var advancedLoansIndicator = RetrieveFamCodeForType(learningDelivery.LearningDeliveryFAMs, ADLLearnDelFamType);
             var resIndicator = RetrieveFamCodeForType(learningDelivery.LearningDeliveryFAMs, RESLearnDelFamType);
@@ -152,7 +160,7 @@ namespace ESFA.DC.FRM.ReportService.Reports.Worksheets.FRM09
                     && ld.LearnStartDate >= withdrawnLearningDelivery.LearnActEndDate)).Any();
         }
 
-        public double DaysBetween(DateTime start, DateTime end)
+        private double DaysBetween(DateTime start, DateTime end)
         {
             return (end - start).TotalDays;
         }

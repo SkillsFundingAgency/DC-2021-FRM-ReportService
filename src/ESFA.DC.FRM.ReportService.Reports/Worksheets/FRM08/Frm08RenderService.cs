@@ -52,7 +52,8 @@ namespace ESFA.DC.FRM.ReportService.Reports.Worksheets.FRM08
 
         protected override Worksheet RenderReportRow(Worksheet worksheet, int row, Frm08ReportModel model)
         {
-            worksheet.Cells.ImportObjectArray(new object[]
+            worksheet.Cells.ImportObjectArray(
+            new object[]
             {
                 _reportID,
                 model.Return,
@@ -90,7 +91,10 @@ namespace ESFA.DC.FRM.ReportService.Reports.Worksheets.FRM08
                 model.ProvSpecDelMon,
                 model.PriorLearnFundAdj,
                 model.OtherFundAdj
-            }, row, 0, false);
+            },
+            row,
+            0,
+            false);
 
             return worksheet;
         }

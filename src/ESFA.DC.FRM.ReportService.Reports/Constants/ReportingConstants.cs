@@ -18,9 +18,9 @@ namespace ESFA.DC.FRM.ReportService.Reports.Constants
         public const string ShortYearStart = "2020";
         public const string ShortYearEnd = "2021";
 
+        public const string ReferenceDateFilterPropertyName = @"Reference Date";
+
         public static readonly DateTime BeginningOfYear = new DateTime(2020, 8, 1);
         public static readonly DateTime EndOfYear = new DateTime(2021, 7, 31, 23, 59, 59);
-
-        public const string ReferenceDateFilterPropertyName = @"Reference Date";
     }
 }

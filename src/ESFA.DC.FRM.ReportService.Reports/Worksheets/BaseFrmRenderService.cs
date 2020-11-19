@@ -5,12 +5,26 @@ using ESFA.DC.FRM.ReportService.Reports.Model.Worksheets;
 
 namespace ESFA.DC.FRM.ReportService.Reports.Worksheets
 {
-    public abstract class BaseFrmRenderService<T> : IRenderService<IEnumerable<T>> where T : BaseFrmReportModel
+    public abstract class BaseFrmRenderService<T> : IRenderService<IEnumerable<T>>
+        where T : BaseFrmReportModel
     {
+        protected readonly string _reportID;
+
         private readonly Style _defaultStyle;
         private readonly Style _dateTimeStyle;
 
-        protected readonly string _reportID;
+        protected BaseFrmRenderService(string reportId)
+        {
+            _reportID = reportId;
+
+            var cellsFactory = new CellsFactory();
+
+            _defaultStyle = cellsFactory.CreateStyle();
+            _dateTimeStyle = cellsFactory.CreateStyle();
+
+            ConfigureStyles();
+        }
+
         protected virtual object[] ColumnNames
             => new object[]
             {
@@ -47,18 +61,6 @@ namespace ESFA.DC.FRM.ReportService.Reports.Worksheets
                 "Funding Stream"
             };
 
-        protected BaseFrmRenderService(string reportId)
-        {
-            _reportID = reportId;
-
-            var cellsFactory = new CellsFactory();
-
-            _defaultStyle = cellsFactory.CreateStyle();
-            _dateTimeStyle = cellsFactory.CreateStyle();
-
-            ConfigureStyles();
-        }
-
         public virtual Worksheet Render(IEnumerable<T> models, Worksheet worksheet)
         {
             worksheet.Workbook.DefaultStyle = _defaultStyle;
@@ -78,7 +80,8 @@ namespace ESFA.DC.FRM.ReportService.Reports.Worksheets
 
         protected virtual Worksheet RenderReportRow(Worksheet worksheet, int row, T model)
         {
-            worksheet.Cells.ImportObjectArray(new object[]
+            worksheet.Cells.ImportObjectArray(
+            new object[]
             {
                 _reportID,
                 model.Return,
@@ -111,7 +114,10 @@ namespace ESFA.DC.FRM.ReportService.Reports.Worksheets
                 model.CompStatus,
                 model.Outcome,
                 model.FundingStream
-            }, row, 0, false);
+            },
+            row,
+            0,
+            false);
 
             return worksheet;
         }

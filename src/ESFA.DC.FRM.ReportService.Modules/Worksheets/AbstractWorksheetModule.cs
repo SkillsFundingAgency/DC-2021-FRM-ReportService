@@ -3,7 +3,8 @@ using ESFA.DC.FRM.ReportService.Interfaces;
 
 namespace ESFA.DC.FRM.ReportService.Modules.Worksheets
 {
-    public abstract class AbstractWorksheetModule<T> : Module where T : IWorksheetReport
+    public abstract class AbstractWorksheetModule<T> : Module
+        where T : IWorksheetReport
     {
         protected override void Load(ContainerBuilder builder)
         {

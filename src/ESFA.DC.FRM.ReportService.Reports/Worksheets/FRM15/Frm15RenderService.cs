@@ -58,7 +58,8 @@ namespace ESFA.DC.FRM.ReportService.Reports.Worksheets.FRM15
 
         protected override Worksheet RenderReportRow(Worksheet worksheet, int row, Frm15ReportModel model)
         {
-            worksheet.Cells.ImportObjectArray(new object[]
+            worksheet.Cells.ImportObjectArray(
+            new object[]
             {
                 ReportId,
                 model.Return,
@@ -99,7 +100,10 @@ namespace ESFA.DC.FRM.ReportService.Reports.Worksheets.FRM15
                 model.EPAOrgId,
                 model.TotalNegotiatedAssessmentPrice,
                 model.AssessmentPaymentReceived
-            }, row, 0, false);
+            },
+            row,
+            0,
+            false);
 
             return worksheet;
         }

@@ -60,16 +60,24 @@ namespace ESFA.DC.FRM.ReportService.Reports.Worksheets.FRM07
 
                         models.Add(BuildModelForLearningDelivery(reportServiceContext, restartDelivery, delivery.Learner, sofCodeDictionary, mcaDictionary, organisationNameDictionary, learnAimDictionary, returnPeriod, orgName, pmOrgName, prevOrgName));
                     }
-
                 }
             }
 
             return models;
         }
 
-        private Frm07ReportModel BuildModelForLearningDelivery(IReportServiceContext reportServiceContext, LearningDelivery learningDelivery, Learner learner,
-            Dictionary<string, string> sofCodeDictionary, Dictionary<string, int> mcaDictionary, Dictionary<long, string> organisationNameDictionary,
-            Dictionary<string, ILARSLearningDelivery> learnAimDictionary, string returnPeriod, string orgName, string pmOrgName, string prevOrgName)
+        private Frm07ReportModel BuildModelForLearningDelivery(
+            IReportServiceContext reportServiceContext,
+            LearningDelivery learningDelivery,
+            Learner learner,
+            Dictionary<string, string> sofCodeDictionary,
+            Dictionary<string, int> mcaDictionary,
+            Dictionary<long, string> organisationNameDictionary,
+            Dictionary<string, ILARSLearningDelivery> learnAimDictionary,
+            string returnPeriod,
+            string orgName,
+            string pmOrgName,
+            string prevOrgName)
         {
             var advancedLoansIndicator = RetrieveFamCodeForType(learningDelivery.LearningDeliveryFAMs, ADLLearnDelFamType);
             var resIndicator = RetrieveFamCodeForType(learningDelivery.LearningDeliveryFAMs, RESLearnDelFamType);
