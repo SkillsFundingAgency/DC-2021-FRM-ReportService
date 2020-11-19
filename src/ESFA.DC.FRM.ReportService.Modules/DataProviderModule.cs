@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Data.SqlClient;
-using System.Security.Cryptography.X509Certificates;
 using Autofac;
 using ESFA.DC.FRM.ReportService.Data;
 using ESFA.DC.FRM.ReportService.Data.ReferenceData;
@@ -51,6 +50,8 @@ namespace ESFA.DC.FRM.ReportService.Modules
                 .InstancePerLifetimeScope();
 
             builder.RegisterType<LearnerProvider>().As<IDataProvider<Learner>>();
+
+            builder.RegisterType<ReturnPeriodProvider>().As<IDataProvider<IReturnPeriod>>();
 
             builder.RegisterType<ReportDataProvider>().As<IReportDataProvider>().InstancePerLifetimeScope();
 
