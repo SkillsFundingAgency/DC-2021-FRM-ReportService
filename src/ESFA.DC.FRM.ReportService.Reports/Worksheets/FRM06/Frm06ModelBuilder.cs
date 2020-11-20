@@ -15,6 +15,11 @@ namespace ESFA.DC.FRM.ReportService.Reports.Worksheets.FRM06
     {
         private readonly IEqualityComparer<LearnerKey> _frmEqualityComparer;
 
+        private readonly int _excludedFundModel = 99;
+        private readonly string _excludedFAMType = "ADL";
+        private readonly string _excludedFAMCode = "1";
+        private readonly HashSet<int> _excludedCategories = new HashSet<int> { 23, 24, 27, 28, 29, 34, 35, 36 };
+
         public Frm06ModelBuilder(IEqualityComparer<LearnerKey> frmEqualityComparer)
         {
             _frmEqualityComparer = frmEqualityComparer;
@@ -31,7 +36,7 @@ namespace ESFA.DC.FRM.ReportService.Reports.Worksheets.FRM06
 
             var returnPeriod = reportServiceContext.ReturnPeriodName;
 
-            foreach (var learner in reportData.PreviousYearLearners ?? Array.Empty<PreviousYearLearner>())
+            foreach (var learner in FilterLearners(reportData))
             {
                 var key = new LearnerKey
                 {
@@ -64,7 +69,7 @@ namespace ESFA.DC.FRM.ReportService.Reports.Worksheets.FRM06
                         Return = returnPeriod,
                         OrgName = learner.OrgName,
                         FworkCode = learner.FworkCodeNullable,
-                        LearnAimTitle = learner.LearnAimTitle,
+                        LearnAimTitle = learnAim?.LearnAimRefTitle,
                         LearnAimRef = learner.LearnAimRef,
                         LearnRefNumber = learner.LearnRefNumber,
                         LearnStartDate = learner.LearnStartDate,
@@ -102,17 +107,32 @@ namespace ESFA.DC.FRM.ReportService.Reports.Worksheets.FRM06
                 return true;
             }
 
-            return model.FundingModel == FundModelConstants.FM99 && model.AdvancedLoansIndicator == LearningDeliveryFAMCodeConstants.ADL_1 ? true : false;
+            return model.FundingModel == FundModelConstants.FM99 && model.AdvancedLoansIndicator == LearningDeliveryFAMCodeConstants.ADL_1;
+        }
+
+        private IEnumerable<IPreviousYearLearner> FilterLearners(IReportData reportData)
+        {
+            foreach (var learner in reportData.PreviousYearLearners ?? Array.Empty<PreviousYearLearner>())
+            {
+                var excluded = reportData.LARSLearningDeliveries
+                    .Any(x => string.Equals(x.LearnAimRef, learner.LearnAimRef, StringComparison.OrdinalIgnoreCase)
+                              && x.LARSLearningDeliveryCategories.Any(ldc => _excludedCategories.Contains(ldc.CategoryRef)));
+
+                if (!excluded)
+                {
+                    yield return learner;
+                }
+            }
         }
 
         private string BuildProvSpecLearnDelMons(IReadOnlyCollection<IProviderSpecDeliveryMonitoring> monitorings)
         {
-            return monitorings == null ? null : string.Join(";", monitorings?.Select(x => x.ProvSpecDelMon));
+            return monitorings == null ? null : string.Join(";", monitorings.Select(x => x.ProvSpecDelMon));
         }
 
         private string BuildProvSpecLearnDelMons(IReadOnlyCollection<IProviderSpecLearnerMonitoring> monitorings)
         {
-            return monitorings == null ? null : string.Join(";", monitorings?.Select(x => x.ProvSpecLearnMon));
+            return monitorings == null ? null : string.Join(";", monitorings.Select(x => x.ProvSpecLearnMon));
         }
 
         private HashSet<LearnerKey> BuildCurrentYearLearnerHashSet(IReadOnlyCollection<Learner> learners)

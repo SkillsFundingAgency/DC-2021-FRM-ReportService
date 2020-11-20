@@ -6,7 +6,6 @@ using ESFA.DC.FileService.Interface;
 using ESFA.DC.FRM.ReportService.Interfaces.Configuration;
 using ESFA.DC.FRM.ReportService.Stateless.Configuration;
 using ESFA.DC.FRM.ReportService.Stateless.Handlers;
-using ESFA.DC.IO.AzureStorage.Config.Interfaces;
 using ESFA.DC.JobContextManager;
 using ESFA.DC.JobContextManager.Interface;
 using ESFA.DC.JobContextManager.Model;
