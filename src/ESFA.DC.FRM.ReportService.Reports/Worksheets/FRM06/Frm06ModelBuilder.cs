@@ -116,7 +116,8 @@ namespace ESFA.DC.FRM.ReportService.Reports.Worksheets.FRM06
             {
                 var excluded = reportData.LARSLearningDeliveries
                     .Any(x => string.Equals(x.LearnAimRef, learner.LearnAimRef, StringComparison.OrdinalIgnoreCase)
-                              && x.LARSLearningDeliveryCategories.Any(ldc => _excludedCategories.Contains(ldc.CategoryRef)));
+                              && x.LARSLearningDeliveryCategories.Any(ldc => _excludedCategories.Contains(ldc.CategoryRef)))
+                    || FM99Exclusion(learner);
 
                 if (!excluded)
                 {
@@ -124,6 +125,9 @@ namespace ESFA.DC.FRM.ReportService.Reports.Worksheets.FRM06
                 }
             }
         }
+
+        private bool FM99Exclusion(IPreviousYearLearner learningDelivery) =>
+            learningDelivery.FundModel == _excludedFundModel && learningDelivery.LearningDeliveryFAMs.Any(ldf => ldf.LearnDelFAMCode == _excludedFAMCode && ldf.LearnDelFAMType == _excludedFAMType);
 
         private string BuildProvSpecLearnDelMons(IReadOnlyCollection<IProviderSpecDeliveryMonitoring> monitorings)
         {
