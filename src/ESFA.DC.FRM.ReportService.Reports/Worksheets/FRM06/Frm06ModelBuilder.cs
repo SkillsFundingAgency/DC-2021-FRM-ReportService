@@ -97,17 +97,7 @@ namespace ESFA.DC.FRM.ReportService.Reports.Worksheets.FRM06
                 }
             }
 
-            return models?.Where(LearningDeliveryFilter);
-        }
-
-        public bool LearningDeliveryFilter(Frm06ReportModel model)
-        {
-            if (model.FundingModel != FundModelConstants.FM99)
-            {
-                return true;
-            }
-
-            return model.FundingModel == FundModelConstants.FM99 && model.AdvancedLoansIndicator == LearningDeliveryFAMCodeConstants.ADL_1;
+            return models;
         }
 
         private IEnumerable<IPreviousYearLearner> FilterLearners(IReportData reportData)
