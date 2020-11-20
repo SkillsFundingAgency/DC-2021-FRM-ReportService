@@ -21,6 +21,5 @@
     <Parameter Name="OrgConnectionString" Value="__OrgConnectionString__" />
     <Parameter Name="JobQueueManagerConnectionString" Value="__JobQueueManagerConnectionString__" />
     <Parameter Name="AzureBlobConnectionString" Value="__AzureBlobConnectionString__" />
-    <Parameter Name="AzureBlobContainerName" Value="__AzureBlobContainerName__" />
   </Parameters>
 </Application>

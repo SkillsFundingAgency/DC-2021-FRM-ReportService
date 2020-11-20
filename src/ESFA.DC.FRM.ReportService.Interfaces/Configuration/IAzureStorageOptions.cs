@@ -3,7 +3,5 @@
     public interface IAzureStorageOptions
     {
         string AzureBlobConnectionString { get; }
-
-        string AzureBlobContainerName { get; }
     }
 }

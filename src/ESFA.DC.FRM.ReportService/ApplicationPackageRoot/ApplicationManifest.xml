@@ -21,7 +21,6 @@
     <Parameter Name="OrgConnectionString" DefaultValue="" />
     <Parameter Name="JobQueueManagerConnectionString" DefaultValue="" />
     <Parameter Name="AzureBlobConnectionString" DefaultValue="" />
-    <Parameter Name="AzureBlobContainerName" DefaultValue="" />
   </Parameters>
   <!-- Import the ServiceManifest from the ServicePackage. The ServiceManifestName and ServiceManifestVersion 
        should match the Name and Version attributes of the ServiceManifest element defined in the 
@@ -60,7 +59,6 @@
           </Section>
           <Section Name="AzureStorageSection">
             <Parameter Name="AzureBlobConnectionString" Value="[AzureBlobConnectionString]" />
-            <Parameter Name="AzureBlobContainerName" Value="[AzureBlobContainerName]" />
           </Section>
         </Settings>
       </ConfigOverride>

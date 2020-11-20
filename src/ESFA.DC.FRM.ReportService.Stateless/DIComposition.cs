@@ -31,11 +31,6 @@ namespace ESFA.DC.FRM.ReportService.Stateless
             // register azure blob storage service
             var azureBlobStorageOptions = serviceFabricConfigurationService.GetConfigSectionAs<AzureStorageOptions>("AzureStorageSection");
             containerBuilder.RegisterInstance(azureBlobStorageOptions).As<IAzureStorageOptions>();
-            containerBuilder.Register(c =>
-                    new AzureStorageKeyValuePersistenceConfig(
-                        azureBlobStorageOptions.AzureBlobConnectionString,
-                        azureBlobStorageOptions.AzureBlobContainerName))
-                .As<IAzureStorageKeyValuePersistenceServiceConfig>().SingleInstance();
 
             var azureStorageFileServiceConfiguration = new AzureStorageFileServiceConfiguration()
             {
