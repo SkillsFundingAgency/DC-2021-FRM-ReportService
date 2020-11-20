@@ -21,7 +21,5 @@ namespace ESFA.DC.FRM.ReportService.Reports.Worksheets.FRM08
                 "Breaks In Learning: Duration")
         {
         }
-
-        public virtual IEnumerable<Type> DependsOn { get; }
     }
 }

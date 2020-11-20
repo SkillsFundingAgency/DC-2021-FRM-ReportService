@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using ESFA.DC.ExcelService.Interface;
 using ESFA.DC.FRM.ReportService.Interfaces;
 using ESFA.DC.FRM.ReportService.Reports.Model.Worksheets;
@@ -21,7 +20,5 @@ namespace ESFA.DC.FRM.ReportService.Reports.Worksheets.FRM15
                 "End Point Assessment Organisations")
         {
         }
-
-        public virtual IEnumerable<Type> DependsOn { get; }
     }
 }

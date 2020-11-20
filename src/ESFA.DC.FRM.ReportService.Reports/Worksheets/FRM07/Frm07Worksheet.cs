@@ -21,7 +21,5 @@ namespace ESFA.DC.FRM.ReportService.Reports.Worksheets.FRM07
                 "Breaks In Learning: Planned End Date")
         {
         }
-
-        public virtual IEnumerable<Type> DependsOn { get; }
     }
 }

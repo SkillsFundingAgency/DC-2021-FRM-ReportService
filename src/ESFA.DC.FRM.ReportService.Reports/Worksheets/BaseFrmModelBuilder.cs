@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using ESFA.DC.FRM.ReportService.Reports.Extensions;
-using ESFA.DC.ILR.Model.Interface;
-using ESFA.DC.ILR2021.DataStore.EF;
+using LearningDeliveryFAM = ESFA.DC.ILR2021.DataStore.EF.LearningDeliveryFAM;
+using ProviderSpecDeliveryMonitoring = ESFA.DC.ILR2021.DataStore.EF.ProviderSpecDeliveryMonitoring;
+using ProviderSpecLearnerMonitoring = ESFA.DC.ILR2021.DataStore.EF.ProviderSpecLearnerMonitoring;
 
 namespace ESFA.DC.FRM.ReportService.Reports.Worksheets
 {
@@ -16,10 +15,10 @@ namespace ESFA.DC.FRM.ReportService.Reports.Worksheets
 
         protected readonly HashSet<string> DevolvedCodes = new HashSet<string> { "110", "111", "112", "113", "114", "115", "116", "117" };
 
-//        protected string RetrieveFamCodeForType(IEnumerable<LearningDeliveryFAM> deliveryFams, string learnDelFamType)
-//        {
-//            return deliveryFams?.FirstOrDefault(f => f.LearnDelFAMType.CaseInsensitiveEquals(learnDelFamType))?.LearnDelFAMCode ?? string.Empty;
-//        }
+        protected string RetrieveFamCodeForType(IEnumerable<Interfaces.PreviousYear.ILearningDeliveryFAM> deliveryFams, string learnDelFamType)
+        {
+            return deliveryFams?.FirstOrDefault(f => f.LearnDelFAMType.CaseInsensitiveEquals(learnDelFamType))?.LearnDelFAMCode ?? string.Empty;
+        }
 
         protected string RetrieveFamCodeForType(IEnumerable<LearningDeliveryFAM> deliveryFams, string learnDelFamType)
         {

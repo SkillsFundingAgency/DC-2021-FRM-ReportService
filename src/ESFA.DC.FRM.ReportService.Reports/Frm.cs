@@ -20,6 +20,8 @@ namespace ESFA.DC.FRM.ReportService.Reports
 
         private readonly string SummaryName = "Summary";
 
+        private readonly string FileName = "Funding Rules Monitoring Report";
+
         public Frm(IDictionary<string, IWorksheetReport> worksheets, IExcelFileService excelFileService, IFileNameService fileNameService, IReportDataProvider reportDataProvider, IModelBuilder<ISummaryModel> summaryPageModelBuilder, IRenderService<ISummaryModel> summaryPageRenderService)
         {
             _excelFileService = excelFileService;
@@ -34,7 +36,7 @@ namespace ESFA.DC.FRM.ReportService.Reports
 
         public async Task<string> GenerateAsync(IReportServiceContext reportServiceContext, CancellationToken cancellationToken)
         {
-            var fileName = _fileNameService.GetFilename(reportServiceContext, string.Empty, OutputTypes.Excel);
+            var fileName = _fileNameService.GetFilename(reportServiceContext, FileName, OutputTypes.Excel);
 
             var reportData = await _reportDataProvider.ProvideAsync(reportServiceContext, cancellationToken);
 

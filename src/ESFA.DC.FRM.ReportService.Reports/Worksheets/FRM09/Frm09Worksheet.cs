@@ -21,7 +21,5 @@ namespace ESFA.DC.FRM.ReportService.Reports.Worksheets.FRM09
             "Transfers with no return")
         {
         }
-
-        public virtual IEnumerable<Type> DependsOn { get; }
     }
 }

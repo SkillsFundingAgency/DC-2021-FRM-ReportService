@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using ESFA.DC.FRM.ReportService.Interfaces.PreviousYear;
 using ESFA.DC.FRM.ReportService.Interfaces.ReferenceData;
 using ESFA.DC.ILR2021.DataStore.EF;
 
@@ -17,5 +18,7 @@ namespace ESFA.DC.FRM.ReportService.Interfaces
         IReadOnlyCollection<IMcaDevolvedContract> McaDevolvedContracts { get; }
 
         IReadOnlyCollection<IReturnPeriod> ReturnPeriods { get; }
+
+        IReadOnlyCollection<IPreviousYearLearner> PreviousYearLearners { get; }
     }
 }

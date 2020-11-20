@@ -21,7 +21,5 @@ namespace ESFA.DC.FRM.ReportService.Reports.Worksheets.FRM06
                 "Continuance Issues")
         {
         }
-
-        public IEnumerable<Type> DependsOn { get; }
     }
 }
