@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using ESFA.DC.FRM.ReportService.Interfaces.Extensions;
 
 namespace ESFA.DC.FRM.ReportService.Reports.Worksheets.FRM06
 {
@@ -6,23 +7,27 @@ namespace ESFA.DC.FRM.ReportService.Reports.Worksheets.FRM06
     {
         public bool Equals(LearnerKey x, LearnerKey y)
         {
-            return GetHashCode(x) == GetHashCode(y);
+            if ((x == null && y != null) || (x != null && y == null))
+            {
+                return false;
+            }
+
+            if (x == null && y == null)
+            {
+                return true;
+            }
+
+            return x.LearnRefNumber.CaseInsensitiveEquals(y.LearnRefNumber)
+                   && x.FworkCodeNullable == y.FworkCodeNullable
+                   && x.LearnAimRef.CaseInsensitiveEquals(y.LearnAimRef)
+                   && x.LearnStartDate == y.LearnStartDate
+                   && x.ProgTypeNullable == y.ProgTypeNullable
+                   && x.StdCodeNullable == y.StdCodeNullable;
         }
 
         public int GetHashCode(LearnerKey obj)
         {
-            if (obj == null)
-            {
-                return 0;
-            }
-
-            return (
-                obj.LearnRefNumber = obj.LearnRefNumber.ToLowerInvariant(),
-                obj.FworkCodeNullable = obj.FworkCodeNullable,
-                obj.LearnAimRef = obj.LearnAimRef.ToLowerInvariant(),
-                obj.LearnStartDate = obj.LearnStartDate,
-                obj.ProgTypeNullable = obj.ProgTypeNullable,
-                obj.StdCodeNullable = obj.StdCodeNullable).GetHashCode();
+            throw new System.NotImplementedException();
         }
     }
 }
