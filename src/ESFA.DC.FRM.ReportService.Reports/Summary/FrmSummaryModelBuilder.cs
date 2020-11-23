@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using ESFA.DC.FRM.ReportService.Interfaces;
+using ESFA.DC.FRM.ReportService.Interfaces.Extensions;
 using ESFA.DC.FRM.ReportService.Interfaces.Reports;
 using ESFA.DC.FRM.ReportService.Reports.Constants;
-using ESFA.DC.FRM.ReportService.Reports.Extensions;
 using ESFA.DC.FRM.ReportService.Reports.Model.Summary;
 using ESFA.DC.FRM.ReportService.Reports.Worksheets;
 
@@ -24,13 +24,6 @@ namespace ESFA.DC.FRM.ReportService.Reports.Summary
                     string.Empty,
                     string.Empty,
                     ReportingConstants.OfficialSensitive)
-
-//                HeaderData = BuildHeader(
-//                orgName,
-//                reportServiceContext.Ukprn.ToString(),
-//                reportServiceContext.OriginalFilename.Split('/').Last(),
-//                reportServiceContext.LastIlrFileUpdate,
-//                ReportingConstants.OfficialSensitive)
             };
         }
 

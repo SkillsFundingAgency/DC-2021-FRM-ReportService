@@ -5,9 +5,9 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Dapper;
-using ESFA.DC.FRM.ReportService.Data.Extensions;
 using ESFA.DC.FRM.ReportService.Interfaces;
 using ESFA.DC.FRM.ReportService.Interfaces.DataProvider;
+using ESFA.DC.FRM.ReportService.Interfaces.Extensions;
 using ESFA.DC.FRM.ReportService.Interfaces.PreviousYear;
 using ESFA.DC.FRM.ReportService.Reports.Model.PreviousYear;
 

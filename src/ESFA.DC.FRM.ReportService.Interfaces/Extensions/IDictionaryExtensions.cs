@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace ESFA.DC.FRM.ReportService.Data.Extensions
+namespace ESFA.DC.FRM.ReportService.Interfaces.Extensions
 {
     public static class IDictionaryExtensions
     {

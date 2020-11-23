@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using ESFA.DC.FRM.ReportService.Interfaces;
-using ESFA.DC.FRM.ReportService.Reports.Extensions;
+using ESFA.DC.FRM.ReportService.Interfaces.Extensions;
 using ESFA.DC.FRM.ReportService.Reports.Model.Worksheets;
 
 namespace ESFA.DC.FRM.ReportService.Reports.Worksheets.FRM15

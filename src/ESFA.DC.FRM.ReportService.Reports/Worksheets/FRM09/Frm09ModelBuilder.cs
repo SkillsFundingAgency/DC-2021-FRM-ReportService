@@ -2,12 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using ESFA.DC.FRM.ReportService.Interfaces;
+using ESFA.DC.FRM.ReportService.Interfaces.Extensions;
 using ESFA.DC.FRM.ReportService.Interfaces.ReferenceData;
 using ESFA.DC.FRM.ReportService.Reports.Constants;
-using ESFA.DC.FRM.ReportService.Reports.Extensions;
-using ESFA.DC.FRM.ReportService.Reports.Model.ReferenceData;
 using ESFA.DC.FRM.ReportService.Reports.Model.Worksheets;
-using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.ILR2021.DataStore.EF;
 
 namespace ESFA.DC.FRM.ReportService.Reports.Worksheets.FRM09

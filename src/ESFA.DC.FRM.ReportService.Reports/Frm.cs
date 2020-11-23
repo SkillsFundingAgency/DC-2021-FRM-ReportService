@@ -4,8 +4,8 @@ using System.Threading.Tasks;
 using ESFA.DC.ExcelService.Interface;
 using ESFA.DC.FRM.ReportService.Interfaces;
 using ESFA.DC.FRM.ReportService.Interfaces.DataProvider;
+using ESFA.DC.FRM.ReportService.Interfaces.Extensions;
 using ESFA.DC.FRM.ReportService.Interfaces.Reports;
-using ESFA.DC.FRM.ReportService.Reports.Extensions;
 
 namespace ESFA.DC.FRM.ReportService.Reports
 {

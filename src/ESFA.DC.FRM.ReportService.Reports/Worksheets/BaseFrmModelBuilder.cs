@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using ESFA.DC.FRM.ReportService.Reports.Extensions;
+using ESFA.DC.FRM.ReportService.Interfaces.Extensions;
 using LearningDeliveryFAM = ESFA.DC.ILR2021.DataStore.EF.LearningDeliveryFAM;
 using ProviderSpecDeliveryMonitoring = ESFA.DC.ILR2021.DataStore.EF.ProviderSpecDeliveryMonitoring;
 using ProviderSpecLearnerMonitoring = ESFA.DC.ILR2021.DataStore.EF.ProviderSpecLearnerMonitoring;

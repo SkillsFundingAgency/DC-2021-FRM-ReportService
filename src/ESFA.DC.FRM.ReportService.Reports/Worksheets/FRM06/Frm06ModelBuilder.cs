@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using ESFA.DC.FRM.ReportService.Interfaces;
+using ESFA.DC.FRM.ReportService.Interfaces.Extensions;
 using ESFA.DC.FRM.ReportService.Interfaces.PreviousYear;
-using ESFA.DC.FRM.ReportService.Reports.Extensions;
 using ESFA.DC.FRM.ReportService.Reports.Model.PreviousYear;
 using ESFA.DC.FRM.ReportService.Reports.Model.Worksheets;
 using ESFA.DC.ILR2021.DataStore.EF;
