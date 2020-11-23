@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using ESFA.DC.FRM.ReportService.Interfaces;
 using ESFA.DC.FRM.ReportService.Interfaces.PreviousYear;
+using ESFA.DC.FRM.ReportService.Interfaces.ReferenceData;
 using ESFA.DC.FRM.ReportService.Reports.Model.PreviousYear;
 using ESFA.DC.FRM.ReportService.Reports.Model.ReferenceData;
 using ESFA.DC.FRM.ReportService.Reports.Model.Worksheets;
@@ -36,7 +37,15 @@ namespace ESFA.DC.FRM.ReportService.Reports.Tests.Frm06
                 new LARSLearningDelivery
                 {
                     LearnAimRef = "LearnAimRef1",
-                    LearnAimRefTypeDesc = "LeanAimRef1Desc"
+                    LearnAimRefTypeDesc = "LeanAimRef1Desc",
+                    LARSLearningDeliveryCategories = new List<ILARSLearningDeliveryCategory>
+                    {
+                        new LARSLearningDeliveryCategory
+                        {
+                            LearnAimRef = "LearnAimRef1",
+                            CategoryRef = 1
+                        }
+                    },
                 }
             };
 
@@ -96,10 +105,10 @@ namespace ESFA.DC.FRM.ReportService.Reports.Tests.Frm06
                 {
                     LearnAimRef = "LearnAimRef1",
                     FundingModel = 99,
-                    AdvancedLoansIndicator = "1",
+                    AdvancedLoansIndicator = string.Empty,
                     ResIndicator = string.Empty,
                     Return = "R01",
-                    LearnRefNumber = "LearnRefNumber2",
+                    LearnRefNumber = "LearnRefNumber3",
                     SOFCode = string.Empty,
                     LearningAimType = "LeanAimRef1Desc"
                 }

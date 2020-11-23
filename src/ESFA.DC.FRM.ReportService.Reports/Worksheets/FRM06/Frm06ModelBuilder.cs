@@ -116,7 +116,7 @@ namespace ESFA.DC.FRM.ReportService.Reports.Worksheets.FRM06
         }
 
         private bool FM99Exclusion(IPreviousYearLearner learningDelivery) =>
-            learningDelivery.FundModel == _excludedFundModel && learningDelivery.LearningDeliveryFAMs.Any(ldf => ldf.LearnDelFAMCode == _excludedFAMCode && ldf.LearnDelFAMType == _excludedFAMType);
+            learningDelivery.FundModel == _excludedFundModel && (learningDelivery.LearningDeliveryFAMs?.Any(ldf => ldf.LearnDelFAMCode == _excludedFAMCode && ldf.LearnDelFAMType == _excludedFAMType) ?? false);
 
         private string BuildProvSpecLearnDelMons(IReadOnlyCollection<IProviderSpecDeliveryMonitoring> monitorings)
         {
