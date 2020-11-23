@@ -12,10 +12,15 @@ namespace ESFA.DC.FRM.ReportService.Modules.Worksheets
 
             RegisterModelBuilder(builder);
             RegisterRenderService(builder);
+            RegisterServices(builder);
         }
 
         protected abstract void RegisterModelBuilder(ContainerBuilder builder);
 
         protected abstract void RegisterRenderService(ContainerBuilder builder);
+
+        protected virtual void RegisterServices(ContainerBuilder builder)
+        {
+        }
     }
 }

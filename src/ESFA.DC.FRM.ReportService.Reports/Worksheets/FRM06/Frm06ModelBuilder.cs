@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using ESFA.DC.FRM.ReportService.Interfaces;
 using ESFA.DC.FRM.ReportService.Interfaces.PreviousYear;
-using ESFA.DC.FRM.ReportService.Reports.Constants;
 using ESFA.DC.FRM.ReportService.Reports.Extensions;
 using ESFA.DC.FRM.ReportService.Reports.Model.PreviousYear;
 using ESFA.DC.FRM.ReportService.Reports.Model.Worksheets;

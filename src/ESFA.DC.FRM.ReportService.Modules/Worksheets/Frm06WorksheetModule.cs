@@ -17,5 +17,10 @@ namespace ESFA.DC.FRM.ReportService.Modules.Worksheets
         {
             builder.RegisterType<Frm06RenderService>().As<IRenderService<IEnumerable<Frm06ReportModel>>>().InstancePerLifetimeScope();
         }
+
+        protected override void RegisterServices(ContainerBuilder builder)
+        {
+            builder.RegisterType<LearnerComparer>().As<IEqualityComparer<LearnerKey>>();
+        }
     }
 }
