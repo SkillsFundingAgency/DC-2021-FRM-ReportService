@@ -32,7 +32,7 @@ stages:
       "Build.Platform": 'Any CPU'
       "Build.PlatformX64": 'x64'  
       "Nuget.Feed": 'dct-pkg'  
-      "Nuget.Version": '5.3.0'
+      "Nuget.Version": '5.8.0'
       "DotnetCore.Version": '2.2.x'
       "Solution": 'src\**\*.sln'
       "SF.ProjectName": '**\*.sfproj'      
@@ -80,7 +80,6 @@ stages:
 # Restore & Build Projects/Solutiosn
 #********************************************************************************   
     - task: DotNetCoreCLI@2
-      enabled: true
       displayName: 'dotnet restore'
       inputs:
         command: restore
@@ -163,18 +162,9 @@ stages:
         TargetFolder: '$(build.artifactstagingdirectory)\Databases'
         CleanTargetFolder: true
         flattenFolders: true
-        
+            
     - task: CopyFiles@2
-      displayName: 'Copy Files - $(build.artifactstagingdirectory)\ServiceFabric\PublishProfiles'
-      inputs:
-        SourceFolder: '$(build.sourcesdirectory)\src'
-        Contents: '**\PublishProfiles\Cloud.xml'
-        TargetFolder: '$(build.artifactstagingdirectory)\ServiceFabric\PublishProfiles'
-        CleanTargetFolder: true
-        flattenFolders: true
-    
-    - task: CopyFiles@2
-      displayName: 'Copy Files - $(build.artifactstagingdirectory)\ServiceFabric\ApplicationParameters'
+      displayName: 'Copy Files - ServiceFabric - ApplicationParameters'
       inputs:
         SourceFolder: '$(build.sourcesdirectory)\src'
         Contents: '**\ApplicationParameters\*.xml'
@@ -211,17 +201,6 @@ stages:
         projects: 'src/*Tests/*.csproj'
         arguments: '--configuration $(Build.Configuration) --collect "Code coverage"'
         
-    - task: VSTest@2
-      displayName: 'VsTest - testAssemblies'
-      enabled: false
-      inputs:
-        testAssemblyVer2: |
-         **\*tests.dll
-         !**\*Database.Tests*\**
-         !**\packages\**
-         !**\obj\**
-        configuration: '$(Build.Configuration)'
-
 #********************************************************************************
 # Publish Artifacts
 #********************************************************************************    
