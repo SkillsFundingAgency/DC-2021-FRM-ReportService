@@ -73,7 +73,7 @@ stages:
     - task: NuGetToolInstaller@0
       displayName: 'Use NuGet : $(Nuget.Version)'
       inputs:
-        versionSpec: '> $(Nuget.Version)'
+        versionSpec: '>= $(Nuget.Version)'
         checkLatest: true
     
 #********************************************************************************
