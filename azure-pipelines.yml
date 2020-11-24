@@ -1,15 +1,25 @@
 
 name: $(VersionNumberMajor).$(VersionNumberMinor)$(Rev:.rrrr)
 
-resources:
-- repo: self
-  fetchDepth: 15
+parameters:
+- name: VersionNumberMajor
+  displayName: 'Version Number : Major'
+  type: string
+  default: '1'  
+- name: VersionNumberMinor
+  displayName: 'Version Number : Minor'
+  type: string
+  default: '1'  
 
-variables:
-- name: VersionNumberMajor 
-  value: '0'
-- name: VersionNumberMinor 
-  value: '1'
+#resources:
+#- repo: self
+#  fetchDepth: 15
+
+#variables:
+#- name: VersionNumberMajor 
+#  value: '0'
+#- name: VersionNumberMinor 
+#  value: '1'
 
 stages:
 - stage: Build
