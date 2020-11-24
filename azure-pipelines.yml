@@ -1,15 +1,15 @@
 
-name: $(VersionNumberMajor).$(VersionNumberMinor)$(Rev:.rrrr)
+name: ${{ parameters.VersionNumberMajor }}.${{ parameters.VersionNumberMinor }}$(Rev:.rrrr)
 
 parameters:
 - name: VersionNumberMajor
   displayName: 'Version Number : Major'
   type: string
-  default: '1'  
+  default: '0'  
 - name: VersionNumberMinor
   displayName: 'Version Number : Minor'
   type: string
-  default: '1'  
+  default: '0'  
 
 #resources:
 #- repo: self
