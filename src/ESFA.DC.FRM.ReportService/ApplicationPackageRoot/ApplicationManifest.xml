@@ -43,7 +43,7 @@
             <Parameter Name="LoggerConnectionString" Value="[LoggerConnectionString]" />
           </Section>
           <Section Name="SoftwareLicenceSection">
-            <Parameter Name="AsposeLicence" Value="[ApostLicence]" />
+            <Parameter Name="AsposeLicence" Value="[AsposeLicence]" />
           </Section>
           <Section Name="VersionSection">
             <Parameter Name="ServiceReleaseVersion" Value="[ServiceReleaseVersion]" />
