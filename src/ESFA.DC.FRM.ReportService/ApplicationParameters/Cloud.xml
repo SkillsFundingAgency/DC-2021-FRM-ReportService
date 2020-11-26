@@ -3,7 +3,7 @@
 	<Parameters>
 		
 		<Parameter Name="ServiceReleaseVersion" Value="__ServiceReleaseVersion__" />
-		<Parameter Name="ESFA.DC.FRM.ReportService.Stateless_InstanceCount" Value="__Stateless_InstanceCount__" />
+		<Parameter Name="ESFA.DC.FRM.ReportService.Stateless_InstanceCount" Value=__Stateless_InstanceCount__ />
 		<Parameter Name="ServiceBusConnectionString" Value="__ServiceBusConnectionString__" />
 		<Parameter Name="TopicName" Value="__FRM2021ReportingTopicName__" />
 		<Parameter Name="SubscriptionName" Value="__FRM2021ReportingSubscriptionName__" />
