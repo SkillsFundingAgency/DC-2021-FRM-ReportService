@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Settings xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.microsoft.com/2011/01/fabric">
+  <!-- Add your custom configuration sections and parameters here -->
+  <Section Name="StatelessServiceConfiguration">
+    <Parameter Name="ServiceBusConnectionString" Value="" />
+    <Parameter Name="TopicName" Value="" />
+    <Parameter Name="SubscriptionName" Value=""/>
+    <Parameter Name="TopicMaxConcurrentCalls" Value=""/>
+    <Parameter Name="TopicMaxCallbackTimeSpanMinutes" Value="" />
+    <Parameter Name="JobStatusQueueName" Value="" />
+    <Parameter Name="JobStatusMaxConcurrentCalls" Value="" />
+    <Parameter Name="AuditQueueName" Value="" />
+    <Parameter Name="AuditMaxConcurrentCalls" Value="" />
+    <Parameter Name="LoggerConnectionString" Value="" />
+  </Section>
+
+  <Section Name="SoftwareLicenceSection">
+    <Parameter Name="AsposeLicence" Value="" />
+  </Section>
+
+  <Section Name="VersionSection">
+    <Parameter Name="ServiceReleaseVersion" Value="" />
+  </Section>
+
+  <Section Name="ReportServiceConfiguration">
+    <Parameter Name="FCSConnectionString" Value=""/>
+    <Parameter Name="ILR1920DataStoreConnectionString" Value=""/>
+    <Parameter Name="ILR2021DataStoreConnectionString" Value=""/>
+    <Parameter Name="PostcodesConnectionString" Value=""/>
+    <Parameter Name="LarsConnectionString" Value=""/>
+    <Parameter Name="OrgConnectionString" Value=""/>
+    <Parameter Name="JobQueueManagerConnectionString" Value=""/>
+  </Section>
+
+  <Section Name="AzureStorageSection">
+    <Parameter Name="AzureBlobConnectionString" Value="" />
+  </Section>
+</Settings>
