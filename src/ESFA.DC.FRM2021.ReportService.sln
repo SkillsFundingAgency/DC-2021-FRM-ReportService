@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.1231
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30717.126
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{A07B5EB6-E848-4116-A8D0-A826331D98C6}") = "ESFA.DC.FRM.ReportService", "ESFA.DC.FRM.ReportService\ESFA.DC.FRM.ReportService.sfproj", "{65E27B5A-CDE2-46B7-984D-4DE10175BCF9}"
 EndProject
@@ -15,9 +15,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ESFA.DC.FRM.ReportService.I
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ESFA.DC.FRM.ReportService.Data", "ESFA.DC.FRM.ReportService.Data\ESFA.DC.FRM.ReportService.Data.csproj", "{A2644B45-7D71-4EE7-B221-F9E2AACCFABD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ESFA.DC.FRM.ReportService.Reports.Tests", "ESFA.DC.FRM.ReportService.Reports.Tests\ESFA.DC.FRM.ReportService.Reports.Tests.csproj", "{A0A6ECF8-DF3D-496D-8E34-5429E6EC885F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ESFA.DC.FRM.ReportService.Reports.Tests", "ESFA.DC.FRM.ReportService.Reports.Tests\ESFA.DC.FRM.ReportService.Reports.Tests.csproj", "{A0A6ECF8-DF3D-496D-8E34-5429E6EC885F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ESFA.DC.FRM.ReportService.Reports.Model", "ESFA.DC.FRM.ReportService.Reports.Model\ESFA.DC.FRM.ReportService.Reports.Model.csproj", "{9A99E540-2285-4708-8115-184F48F98DBC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ESFA.DC.FRM.ReportService.Reports.Model", "ESFA.DC.FRM.ReportService.Reports.Model\ESFA.DC.FRM.ReportService.Reports.Model.csproj", "{9A99E540-2285-4708-8115-184F48F98DBC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{51FD0361-70B9-4521-A04B-47C9F2B5160F}"
+	ProjectSection(SolutionItems) = preProject
+		..\azure-pipelines.yml = ..\azure-pipelines.yml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -28,17 +33,21 @@ Global
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{65E27B5A-CDE2-46B7-984D-4DE10175BCF9}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{65E27B5A-CDE2-46B7-984D-4DE10175BCF9}.Debug|Any CPU.Build.0 = Debug|x64
 		{65E27B5A-CDE2-46B7-984D-4DE10175BCF9}.Debug|x64.ActiveCfg = Debug|x64
 		{65E27B5A-CDE2-46B7-984D-4DE10175BCF9}.Debug|x64.Build.0 = Debug|x64
 		{65E27B5A-CDE2-46B7-984D-4DE10175BCF9}.Debug|x64.Deploy.0 = Debug|x64
 		{65E27B5A-CDE2-46B7-984D-4DE10175BCF9}.Release|Any CPU.ActiveCfg = Release|x64
+		{65E27B5A-CDE2-46B7-984D-4DE10175BCF9}.Release|Any CPU.Build.0 = Release|x64
 		{65E27B5A-CDE2-46B7-984D-4DE10175BCF9}.Release|x64.ActiveCfg = Release|x64
 		{65E27B5A-CDE2-46B7-984D-4DE10175BCF9}.Release|x64.Build.0 = Release|x64
 		{65E27B5A-CDE2-46B7-984D-4DE10175BCF9}.Release|x64.Deploy.0 = Release|x64
 		{6A8BC7DE-39DF-4DC8-B922-FA9BD2DCF270}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{6A8BC7DE-39DF-4DC8-B922-FA9BD2DCF270}.Debug|Any CPU.Build.0 = Debug|x64
 		{6A8BC7DE-39DF-4DC8-B922-FA9BD2DCF270}.Debug|x64.ActiveCfg = Debug|x64
 		{6A8BC7DE-39DF-4DC8-B922-FA9BD2DCF270}.Debug|x64.Build.0 = Debug|x64
 		{6A8BC7DE-39DF-4DC8-B922-FA9BD2DCF270}.Release|Any CPU.ActiveCfg = Release|x64
+		{6A8BC7DE-39DF-4DC8-B922-FA9BD2DCF270}.Release|Any CPU.Build.0 = Release|x64
 		{6A8BC7DE-39DF-4DC8-B922-FA9BD2DCF270}.Release|x64.ActiveCfg = Release|x64
 		{6A8BC7DE-39DF-4DC8-B922-FA9BD2DCF270}.Release|x64.Build.0 = Release|x64
 		{B7935B5C-A373-424F-AA22-1943ED1EA1BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
